@@ -1,0 +1,94 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+
+
+.header, .header:disabled {
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 34px
+}
+
+.sub_header, .sub_header:disabled{
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 16px
+}
+
+.textfield_label, .textfield_label:disabled{
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 14px
+}
+.remember_me, .remember_me:disabled{
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 12px
+}
+
+.bottom, .bottom:disabled {
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 12px
+}
+
+.mainPage{
+    -fx-background-image: url('../images/loginImage.jpg');
+    -fx-background-size: cover;
+}
+
+.white_background{
+    -fx-background-color: white;
+
+}
+
+.text_field{
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+
+.text_field:active {
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+
+.text_color{
+    -fx-text-fill: black;
+}
+
+.checkbox_color:hover{
+    -fx-background-color: inherit;
+}
+
+.button, .button:hover{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+
+.warning_red{
+    -fx-background-color: #ff0f0f
+}
+
+.warning_text{
+    -fx-text-fill: #ff0f0f
+}
+
+.background_radius{
+    -fx-background-radius: 10
+}
+
+.warning_header{
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 20px
+}
+.warning_border{
+    -fx-border-color: #ff0f0f
+}
+.normal_border{
+    -fx-border-color: #bbbbbb
+}

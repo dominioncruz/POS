@@ -38,7 +38,7 @@
                      <children>
                         <Label maxWidth="1.7976931348623157E308" stylesheets="@loginpage.css" text="Sign In" textFill="WHITE">
                            <font>
-                              <Font size="34.0" />
+                              <Font name="Righteous" size="34.0" />
                            </font>
                            <padding>
                               <Insets left="30.0" />

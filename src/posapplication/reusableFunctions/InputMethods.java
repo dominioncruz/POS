@@ -31,4 +31,15 @@ public class InputMethods {
             border.getStyleClass().add("normal_border");
         }, 3, TimeUnit.SECONDS);
     }
+    
+    public boolean checkForEmptyInputFields(Map<TextField, VBox> buttonPaneMap) {
+        boolean meetsRequirements = true;
+        for(TextField input : buttonPaneMap.keySet()){
+            if(input.getText().isEmpty()){
+                meetsRequirements = false;
+                delayShow(buttonPaneMap.get(input));
+            }
+        }
+        return meetsRequirements;
+    }
 }

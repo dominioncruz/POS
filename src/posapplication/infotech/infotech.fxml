@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.infotech.InfotechController">
+   <children>
+      <BorderPane fx:id="entireScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1360.0" style="-fx-background-color: white;">
+         <left>
+            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="180.0" style="-fx-background-color: #03405C;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="DESKTOP" size="18" />
+                        <Label stylesheets="@infotechhomepage.css" text="Info Tech">
+                           <styleClass>
+                              <String fx:value="header" />
+                              <String fx:value="sidebar_text_color" />
+                           </styleClass>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <StackPane fx:id="userImage" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Circle fill="WHITE" radius="57.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                              <Circle fx:id="profile_picture" fill="#03405c" radius="55.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                           </children>
+                        </StackPane>
+                        <Label fx:id="userFullName" stylesheets="@infotechhomepage.css" text="Miracle Nnadiukwu">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="sidebar_text_color" />
+                              <String fx:value="poppins_font_name" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="userEmail" styleClass="poppins_font_sub" stylesheets="@infotechhomepage.css" text="nmiracle@pau.edu.ng" textFill="#cdcdcd">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="35.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="15.0">
+                     <children>
+                        <HBox fx:id="registerSideBarHBox" alignment="CENTER_LEFT" onMousePressed="#togglePage" spacing="13.0" stylesheets="@infotechhomepage.css">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="USER_PLUS" size="20" />
+                              <Label styleClass="sidebar_text_color" stylesheets="@infotechhomepage.css" text="Register">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="25.0" top="20.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="tab" />
+                              <String fx:value="selected_tab" />
+                           </styleClass>
+                        </HBox>
+                        <HBox fx:id="searchSideBarVBox" alignment="CENTER_LEFT" onMousePressed="#togglePage" spacing="13.0" styleClass="tab" stylesheets="@infotechhomepage.css">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="20" />
+                              <Label styleClass="sidebar_text_color" stylesheets="@infotechhomepage.css" text="Search">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="25.0" top="20.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                        <HBox fx:id="backUpSideBarHBox" alignment="CENTER_LEFT" onMousePressed="#togglePage" spacing="13.0" styleClass="tab" stylesheets="@infotechhomepage.css">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="DATABASE" size="20" />
+                              <Label styleClass="sidebar_text_color" stylesheets="@infotechhomepage.css" text="Data Backup">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="25.0" top="20.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Pane VBox.vgrow="SOMETIMES" />
+                  <HBox alignment="CENTER_LEFT" onMousePressed="#signOut" spacing="13.0" styleClass="signOut" stylesheets="@infotechhomepage.css">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
+                        <Label stylesheets="@infotechhomepage.css" text="Sign Out">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="sidebar_text_color" />
+                              <String fx:value="signOut" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="25.0" left="25.0" top="25.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </VBox>
+         </left>
+         <right>
+            <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="300.0" spacing="25.0" style="-fx-background-color: #e5eaee; -fx-border-color: white;" styleClass="side_bar" stylesheets="@infotechhomepage.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" stylesheets="@infotechhomepage.css">
+                     <children>
+                        <VBox alignment="CENTER" style="-fx-background-color: #03405C; -fx-background-radius: 5;" styleClass="noticifcation" stylesheets="@infotechhomepage.css">
+                           <children>
+                              <FontAwesomeIconView fill="WHITE" glyphName="BELL" size="20" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </VBox>
+                        <Label stylesheets="@infotechhomepage.css" text="Notifications">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="text_color" />
+                              <String fx:value="noticifcation_text" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <Label fx:id="sideBarDate" styleClass="small_date" stylesheets="@infotechhomepage.css" text="Jan 2024" textFill="#03405c">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" top="50.0" />
+               </padding>
+            </VBox>
+         </right>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane fx:id="registerBorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <top>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER_LEFT">
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+                                 <children>
+                                    <Label fx:id="greeting" styleClass="header" stylesheets="@infotechhomepage.css" text="Hello, Miracle">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="mainBorderPaneDate" styleClass="poppins_font" stylesheets="@infotechhomepage.css" text="29 January 2024" textFill="#03405c" />
+                                 </children>
+                              </VBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" onAction="#registerANewUser" stylesheets="@infotechhomepage.css" text="Register New User">
+                                 <styleClass>
+                                    <String fx:value="header" />
+                                    <String fx:value="register_button" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets bottom="25.0" left="35.0" right="35.0" top="25.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </top>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                     <center>
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                 <children>
+                                    <VBox fx:id="firstNameBorder" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="First name" translateX="-100.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="USER" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="firstNameValue" maxWidth="1.7976931348623157E308" promptText="Please enter your first name" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="lastNameBorder" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="Last name" translateX="-100.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="USER" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="lastNameValue" maxWidth="1.7976931348623157E308" promptText="Please enter your last name" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <DatePicker fx:id="dateOfBirth" editable="false" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" promptText="Please enter your date of birth" styleClass="datePicker" stylesheets="@infotechhomepage.css">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </DatePicker>
+                                    <VBox fx:id="emailBorder" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="Email" translateX="-120.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="ENVELOPE" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="emailValue" maxWidth="1.7976931348623157E308" promptText="Please enter your email address" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="phoneBorder" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="Phone" translateX="-120.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="PHONE" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="phoneValue" maxWidth="1.7976931348623157E308" promptText="Please enter your phone number" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <ComboBox fx:id="genderComboBox" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="150.0" promptText="Please select your gender" style="-fx-background-color: transparent; -fx-border-color: #bbbbbb; -fx-border-radius: 5;" styleClass="combobox" stylesheets="@infotechhomepage.css" visibleRowCount="2">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </ComboBox>
+                                    <ComboBox fx:id="roleComboBox" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="150.0" promptText="Please select your role" style="-fx-background-color: transparent; -fx-border-color: #bbbbbb; -fx-border-radius: 5;" styleClass="combobox" stylesheets="@infotechhomepage.css" visibleRowCount="4">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </ComboBox>
+                                 </children>
+                              </VBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                 <children>
+                                    <Rectangle fx:id="imageComtainer" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="350.0" stroke="#bbbbbb" strokeType="INSIDE" width="350.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#openWebcam" styleClass="secondary" stylesheets="@infotechhomepage.css" text="Webcam">
+                                             <padding>
+                                                <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Pane HBox.hgrow="SOMETIMES" />
+                                          <Button mnemonicParsing="false" onAction="#selectProfilePhoto" styleClass="secondary" stylesheets="@infotechhomepage.css" text="Upload">
+                                             <padding>
+                                                <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </center>
+                  </BorderPane>
+                  <BorderPane fx:id="searchBorderPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
+                     <top>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="150.0" prefWidth="200.0" spacing="15.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button maxWidth="-Infinity" minWidth="120.0" mnemonicParsing="false" onAction="#searchForUser" prefWidth="120.0" stylesheets="@infotechhomepage.css" text="Search">
+                                 <styleClass>
+                                    <String fx:value="header" />
+                                    <String fx:value="register_button" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-radius: 10;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                 <children>
+                                    <FontAwesomeIconView fill="#cccccc" glyphName="SEARCH" size="20" />
+                                    <TextField fx:id="emailSearchField" prefWidth="250.0" promptText="Please enter user email" styleClass="text_field" stylesheets="@../login/loginpage.css">
+                                       <padding>
+                                          <Insets bottom="20.0" left="10.0" top="20.0" />
+                                       </padding>
+                                    </TextField>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </HBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <Button fx:id="resetPasswordButton" disable="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetUserPassword" prefWidth="160.0" stylesheets="@infotechhomepage.css" text="Reset password">
+                                 <styleClass>
+                                    <String fx:value="header" />
+                                    <String fx:value="register_button" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="updateUserPassword" disable="true" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#updateUserInformation" prefWidth="120.0" stylesheets="@infotechhomepage.css" text="Update User">
+                                 <styleClass>
+                                    <String fx:value="header" />
+                                    <String fx:value="register_button" />
+                                 </styleClass>
+                                 <padding>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </top>
+                     <padding>
+                        <Insets left="50.0" right="50.0" />
+                     </padding>
+                     <center>
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                 <children>
+                                    <VBox fx:id="firstNameBorder1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="First name" translateX="-100.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="USER" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="firstNameSearchvalue" maxWidth="1.7976931348623157E308" promptText="Please enter your first name" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="lastNameBorder1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="Last name" translateX="-100.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="USER" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="lastNameSearchValue" maxWidth="1.7976931348623157E308" promptText="Please enter your last name" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <DatePicker fx:id="dateOfBirthSearchValue" editable="false" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="50.0" promptText="Please enter your date of birth" styleClass="datePicker" stylesheets="@infotechhomepage.css">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </DatePicker>
+                                    <VBox fx:id="emailBorder1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="Email" translateX="-120.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="ENVELOPE" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="emailSearchValue" maxWidth="1.7976931348623157E308" promptText="Please enter your email address" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="phoneBorder1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@../login/loginpage.css">
+                                       <children>
+                                          <Label stylesheets="@../login/loginpage.css" text="Phone" translateX="-120.0" translateY="-8.0">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="2.0" right="2.0" />
+                                             </padding>
+                                             <styleClass>
+                                                <String fx:value="white_background" />
+                                                <String fx:value="text_color" />
+                                                <String fx:value="textfield_label" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#cccccc" glyphName="PHONE" onMousePressed="#togglePassword" size="18">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <HBox.margin>
+                                                      <Insets left="15.0" />
+                                                   </HBox.margin>
+                                                </FontAwesomeIconView>
+                                                <TextField fx:id="phoneSearchValue" maxWidth="1.7976931348623157E308" promptText="Please enter your phone number" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                                   <padding>
+                                                      <Insets bottom="15.0" left="15.0" />
+                                                   </padding>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <ComboBox fx:id="genderSearchValue" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="150.0" promptText="Please select your gender" style="-fx-background-color: transparent; -fx-border-color: #bbbbbb; -fx-border-radius: 5;" styleClass="combobox" stylesheets="@infotechhomepage.css" visibleRowCount="2">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </ComboBox>
+                                    <ComboBox fx:id="roleSearchValue" maxWidth="1.7976931348623157E308" prefHeight="50.0" prefWidth="150.0" promptText="Please select your role" style="-fx-background-color: transparent; -fx-border-color: #bbbbbb; -fx-border-radius: 5;" styleClass="combobox" stylesheets="@infotechhomepage.css" visibleRowCount="4">
+                                       <padding>
+                                          <Insets left="35.0" />
+                                       </padding>
+                                    </ComboBox>
+                                 </children>
+                              </VBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                 <children>
+                                    <Rectangle fx:id="imageComtainer2" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="350.0" stroke="#bbbbbb" strokeType="INSIDE" width="350.0" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#openWebcamForUpdate" styleClass="secondary" stylesheets="@infotechhomepage.css" text="Webcam">
+                                             <padding>
+                                                <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Pane HBox.hgrow="SOMETIMES" />
+                                          <Button mnemonicParsing="false" onAction="#selectProfilePhotoForUpdate" styleClass="secondary" stylesheets="@infotechhomepage.css" text="Upload">
+                                             <padding>
+                                                <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </center>
+                  </BorderPane>
+                  <BorderPane fx:id="schedulePane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <center>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="40.0" style="-fx-border-color: #bbbbbb; -fx-border-style: dotted; -fx-border-radius: 10; -fx-border-width: 2;" stylesheets="@infotechhomepage.css" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox alignment="CENTER" spacing="10.0">
+                                 <children>
+                                    <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+                                       <children>
+                                          <FontAwesomeIconView fill="#03405c" glyphName="CLOUD" size="90" />
+                                          <Label style="-fx-background-color: white; -fx-background-radius: 10;" translateX="35.0" translateY="25.0">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#03405c" glyphName="DATABASE" size="30" />
+                                             </graphic>
+                                             <padding>
+                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                    </StackPane>
+                                    <Label styleClass="dataBackup" stylesheets="@infotechhomepage.css" text="Data Backup" />
+                                    <Label prefWidth="300.0" styleClass="sub_header" stylesheets="@../login/loginpage.css" text="Schedule backup to create duplicate copy of database in local storage" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" spacing="5.0">
+                                 <children>
+                                    <Label styleClass="sub_header" stylesheets="@../login/loginpage.css" text="Scheduled time" />
+                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                                       <children>
+                                          <ComboBox fx:id="hourComboBox" maxWidth="-Infinity" prefHeight="50.0" prefWidth="100.0" promptText="16" style="-fx-background-color: transparent; -fx-border-color: #bbbbbb; -fx-border-radius: 5;" styleClass="combobox" stylesheets="@infotechhomepage.css" visibleRowCount="5">
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ComboBox>
+                                          <ComboBox fx:id="minuteComboBox" maxWidth="-Infinity" prefHeight="50.0" prefWidth="100.0" promptText="30" style="-fx-background-color: transparent; -fx-border-color: #bbbbbb; -fx-border-radius: 5;" styleClass="combobox" stylesheets="@infotechhomepage.css" visibleRowCount="5">
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Button mnemonicParsing="false" onAction="#scheduleBackup" styleClass="register_button" stylesheets="@infotechhomepage.css" text="Schedule Backup">
+                                 <padding>
+                                    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
+                           </padding>
+                        </VBox>
+                     </center>
+                  </BorderPane>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+      <VBox fx:id="invalidDetailVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" spacing="10.0" stylesheets="@../login/loginpage.css" visible="false">
+         <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="75.0" style="-fx-background-radius: 50%;" styleClass="warning_red" stylesheets="@../login/loginpage.css">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="40">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+            <Label stylesheets="@../login/loginpage.css" text="Error">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="warning_text" />
+                  <String fx:value="warning_header" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="errorMessage" styleClass="warning_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </Label>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeWarningBox" prefHeight="50.0" prefWidth="200.0" stylesheets="@../login/loginpage.css" text="Close" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="warning_red" />
+                  <String fx:value="background_radius" />
+                  <String fx:value="textfield_label" />
+               </styleClass>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="white_background" />
+            <String fx:value="background_radius" />
+         </styleClass>
+         <effect>
+            <DropShadow />
+         </effect>
+      </VBox>
+      <ProgressIndicator fx:id="loadingBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" />
+      <VBox fx:id="successBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" spacing="10.0" stylesheets="@../login/loginpage.css" visible="false">
+         <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="75.0" style="-fx-background-radius: 50%;" styleClass="success_green" stylesheets="@../login/loginpage.css">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="40">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+            <Label stylesheets="@../login/loginpage.css" text="Success">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="success_text" />
+                  <String fx:value="warning_header" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="successMessage" styleClass="success_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </Label>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeWarningBox" prefHeight="50.0" prefWidth="200.0" stylesheets="@../login/loginpage.css" text="Close" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="success_green" />
+                  <String fx:value="background_radius" />
+                  <String fx:value="textfield_label" />
+               </styleClass>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="white_background" />
+            <String fx:value="background_radius" />
+         </styleClass>
+         <effect>
+            <DropShadow />
+         </effect>
+      </VBox>
+   </children>
+</StackPane>

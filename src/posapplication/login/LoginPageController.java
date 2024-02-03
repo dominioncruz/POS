@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import javafx.stage.Stage;
 import posapplication.reusableFunctions.PasswordHashing;
+import posapplication.reusableFunctions.centerScreen;
 
 public class LoginPageController implements Initializable {
 
@@ -47,7 +48,8 @@ public class LoginPageController implements Initializable {
 
     private final UserPreferences currentPreferences;
     private final InputMethods currentInputMethods;
-    Connection connection = DatabaseConnection.getInstance();
+    private final centerScreen centerScreenInstance;
+    static DatabaseConnection databaseConnection;
 
     @FXML
     private CheckBox saveState;
@@ -57,6 +59,11 @@ public class LoginPageController implements Initializable {
     public LoginPageController() throws ClassNotFoundException {
         this.currentPreferences = new UserPreferences();
         this.currentInputMethods = new InputMethods();
+        this.centerScreenInstance = new centerScreen();
+    }
+
+    public void setData(DatabaseConnection data) {
+        databaseConnection = data;
     }
 
     @Override
@@ -71,11 +78,11 @@ public class LoginPageController implements Initializable {
 
     @FXML
     private void loginUser(ActionEvent event) throws SQLException, Exception {
-        
+
         try {
-            
+
             boolean canCheck = true;
-            
+
             if (emailValue.getText().isEmpty()) {
                 currentInputMethods.delayShow(emailBorder);
                 canCheck = false;
@@ -87,7 +94,7 @@ public class LoginPageController implements Initializable {
             if (canCheck) {
                 loadingBar.setVisible(true);
                 entirePage.setDisable(true);
-                ResultSet rs = DatabaseConnection.checkIfUserExists(emailValue.getText().toLowerCase(), "SELECT * FROM personal_details WHERE email = ?");
+                ResultSet rs = databaseConnection.checkIfUserExists(emailValue.getText().toLowerCase(), "SELECT * FROM personal_details WHERE email = ?");
                 if (rs.next()) {
                     String storedHash = rs.getString("password");
                     String storedSalt = rs.getString("salt");
@@ -101,7 +108,17 @@ public class LoginPageController implements Initializable {
                             currentPreferences.setEmail("");
                             currentPreferences.setStatus(false);
                         }
-                        System.out.println("Logged in");
+                        Stage currentStage = (Stage) entirePage.getScene().getWindow();
+                        currentStage.close();
+                        switch (rs.getString("role").replaceAll("\\s+", "")) {
+                            case "InfoTech":
+                                centerScreenInstance.centerInfoTech(currentStage, rs, "/posapplication/infotech/infotech.fxml", databaseConnection);
+                                break;
+                            case "Inventory":
+                                centerScreenInstance.centerInventory(currentStage, rs, "/posapplication/inventory/inventory.fxml", databaseConnection);
+                                break;
+                        }
+
                     } else {
                         invalidDetailVBox.setVisible(true);
                         Toolkit.getDefaultToolkit().beep();

@@ -1,0 +1,116 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+@font-face {
+    font-family: 'Righteous';
+    src: url('../posapplication/fonts/Righteous-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Righteous';
+    src: url('../posapplication/fonts/Poppins-Semibold.ttf');
+}
+
+.white_background, .white_background:disabled{
+    -fx-background-color: white;
+
+}
+
+.side_bar{
+    -fx-background-radius: 0 30 30 00;
+    -fx-border-radius: 0 30 30 0;
+    -fx-background-color:  #e5eaee;
+}
+
+.noticifcation FontAwesomeIconView{
+    -fx-fill:  white;
+}
+
+.noticifcation_text, .noticifcation_text:disabled{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+
+.noticifcation_text, .noticifcation_text:disabled{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+
+.text_color{
+    -fx-text-fill: black;
+}
+
+.small_date, .small_date:disabled{
+    -fx-font-size: 14px;
+    -fx-font-family: 'Righteous';
+}
+
+.signOut:hover{
+    -fx-background-color: #ff0f0f;
+    -fx-background-radius: 0 0 30 0;
+}
+
+.signOut:hover Label {
+    -fx-text-fill:  white;
+    -fx-font-size: 16px
+}
+
+.signOut:hover FontAwesomeIconView{
+    -fx-fill: white;
+}
+
+.signOut Label, .signOut:disabled Label{
+    -fx-font-size: 16px;
+    -fx-font-family: 'Righteous';
+}
+.sidebar_text_color{
+    -fx-text-fill: #03405c;
+}
+
+.header, .header:disabled {
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 25px
+}
+
+.work, .work:disabled {
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 15px
+}
+
+.poppins_font_name, .poppins_font_name:disabled{
+    -fx-font-family: 'Poppins Semibold';
+    -fx-font-size: 14px
+}
+
+.poppins_font_sub, .poppins_font_sub:disabled{
+    -fx-font-family: 'Poppins Semibold';
+    -fx-font-size: 10px
+}
+
+
+
+.normal_border{
+    -fx-border-color: #bbbbbb;
+    -fx-border-radius: 10;
+}
+
+.register_button, .register_button:disabled {
+    -fx-background-color: #03405C;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+.buttonStyle, .buttonStyle:disabled{
+    -fx-background-color: #03405C;
+    -fx-background-radius: 50%;
+        
+        
+    
+    
+}

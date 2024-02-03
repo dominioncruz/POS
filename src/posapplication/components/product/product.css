@@ -1,0 +1,46 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+}
+
+@font-face {
+    font-family: 'Righteous';
+    src: url('../posapplication/fonts/Righteous-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../posapplication/fonts/Poppins-Regular.ttf');
+}
+
+.card{
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+}
+
+.blue_background, .blue_background:disabled{
+    -fx-background-color: #03405c;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+.product_name, .product_name:disabled{
+    -fx-font-size: 14px;
+    -fx-font-family: 'Righteous';
+}
+
+.description, .description:disabled{
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 10px
+}
+
+.product_color, .product_color:disabled{
+    -fx-text-fill: #03405c;
+}
+
+.code, .code:disabled{
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 10px;
+    -fx-text-fill: #bbbbbb;
+}

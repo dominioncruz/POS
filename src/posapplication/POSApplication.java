@@ -6,12 +6,8 @@ package posapplication;
 
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import posapplication.reusableFunctions.DatabaseConnection;
 import posapplication.reusableFunctions.centerScreen;
 
 /**
@@ -19,11 +15,11 @@ import posapplication.reusableFunctions.centerScreen;
  * @author HP PROBOOK 430 G3
  */
 public class POSApplication extends Application {
-    
+    DatabaseConnection  connection = DatabaseConnection.getInstance();
     @Override
     public void start(Stage primaryStage) throws IOException {
         centerScreen screenInstance = new centerScreen();
-        screenInstance.centerFrame(primaryStage, "/posapplication/login/loginPage.fxml");
+        screenInstance.centerFrame(primaryStage, "/posapplication/login/loginPage.fxml", connection);
     }
 
     /**
@@ -32,5 +28,5 @@ public class POSApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

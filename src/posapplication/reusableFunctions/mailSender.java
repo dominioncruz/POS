@@ -48,8 +48,8 @@ public class mailSender {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email + ", david.usim@pau.edu.ng"));
-            message.setSubject("CBT Student registration");
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("POS application registration");
 
             String htmlContent = "<html><body>"
                     + "<h3>Hello " + firstName + ",</h3>"

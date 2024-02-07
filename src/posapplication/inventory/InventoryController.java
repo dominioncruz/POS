@@ -31,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -154,7 +155,7 @@ public class InventoryController implements Initializable {
         productsContainer.getChildren().clear();
         if (searchQuery.equals("")) {
             for (Node node : productVBoxes) {
-                if (node instanceof VBox productVBox) {
+                if (node instanceof StackPane productVBox) {
                     ProductController productController = (ProductController) productVBox.getProperties().get("controller");
                     productsContainer.getChildren().add(productVBox);  // Add matching products
                 }
@@ -162,7 +163,7 @@ public class InventoryController implements Initializable {
 
         } else {
             for (Node node : productVBoxes) {
-                if (node instanceof VBox productVBox) {
+                if (node instanceof StackPane productVBox) {
                     ProductController productController = (ProductController) productVBox.getProperties().get("controller");
                     if (productController != null && containsSearchQuery(productController.getCurrentProduct(), searchQuery)) {
                         productsContainer.getChildren().add(productVBox);  // Add matching products
@@ -198,7 +199,7 @@ public class InventoryController implements Initializable {
         System.arraycopy(newArray, 0, myInputList, 0, 6);
 
         for (Node node : productsContainer.getChildren()) {
-            if (node instanceof VBox) {
+            if (node instanceof StackPane) {
                 productVBoxes.add(node);
             }
         }
@@ -285,10 +286,10 @@ public class InventoryController implements Initializable {
     @FXML
     private void updateProductInfo(ActionEvent event) {
         if ("Create".equals(createProductButton.getText())) {
-            currentInventoryMethods.createNewProduct(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, productVBoxes, submitButton);
+            currentInventoryMethods.createNewProduct(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, submitButton, productVBoxes, myProductFunctions);
 
         } else {
-            currentInventoryMethods.updateProductInformation(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, currentProduct, submitButton);
+            currentInventoryMethods.updateProductInformation(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, currentProduct, submitButton, productVBoxes, myProductFunctions);
         }
 
     }

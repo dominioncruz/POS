@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.cashier.SalespersonController">
+   <children>
+      <BorderPane fx:id="entireScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1360.0" styleClass="white_background" stylesheets="@salesperson.css">
+         <left>
+            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="180.0" minWidth="180.0" prefHeight="760.0" prefWidth="180.0" spacing="45.0" styleClass="ash_background" stylesheets="@salesperson.css" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" spacing="15.0">
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logo-150x150.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#03405c" height="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="120.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <HBox fx:id="navBarCart" alignment="CENTER_RIGHT" spacing="15.0" stylesheets="@salesperson.css">
+                           <children>
+                              <FontAwesomeIconView glyphName="SHOPPING_CART" size="25" />
+                              <Label styleClass="payment" stylesheets="@salesperson.css" text="Shop" />
+                              <Pane HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="10.0" arcWidth="10.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="4.0" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="tab" />
+                              <String fx:value="selected" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                        <HBox fx:id="nvaBarMessages" alignment="CENTER_RIGHT" spacing="15.0" styleClass="tab" stylesheets="@salesperson.css">
+                           <children>
+                              <FontAwesomeIconView glyphName="BELL" size="25" />
+                              <Label prefHeight="23.0" prefWidth="94.0" styleClass="payment" stylesheets="@salesperson.css" text="Messages" textFill="#777777" />
+                              <Pane HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="10.0" arcWidth="10.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="4.0" />
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </VBox>
+                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <HBox alignment="CENTER_LEFT" onMousePressed="#signOut" spacing="15.0" styleClass="signOut" stylesheets="@salesperson.css">
+                     <children>
+                        <FontAwesomeIconView glyphName="SIGN_OUT" size="25" />
+                        <Label prefHeight="23.0" prefWidth="94.0" text="Sign Out" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" top="20.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="25.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox fx:id="shoppingPage" alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="normal_border" stylesheets="@../inventory/inventory.css">
+                                       <children>
+                                          <FontAwesomeIconView fill="#cccccc" glyphName="SEARCH" size="20" />
+                                          <TextField fx:id="productSearchBar" focusTraversable="false" prefWidth="250.0" promptText="Search by product name or code" styleClass="text_field" stylesheets="@../login/loginpage.css">
+                                             <padding>
+                                                <Insets bottom="20.0" left="10.0" top="20.0" />
+                                             </padding>
+                                          </TextField>
+                                       </children>
+                                       <padding>
+                                          <Insets left="15.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Pane HBox.hgrow="ALWAYS" />
+                                    <VBox alignment="CENTER_RIGHT">
+                                       <children>
+                                          <Label fx:id="userFullName" stylesheets="@../inventory/inventory.css" text="miracle nnadiukwu">
+                                             <styleClass>
+                                                <String fx:value="poppins_font_name" />
+                                                <String fx:value="sidebar_text_color" />
+                                             </styleClass>
+                                          </Label>
+                                          <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+                                             <children>
+                                                <FontAwesomeIconView fill="#03405c" glyphName="SHOPPING_CART" size="15" />
+                                                <Label stylesheets="@../inventory/inventory.css" text="Cashier">
+                                                   <styleClass>
+                                                      <String fx:value="work" />
+                                                      <String fx:value="sidebar_text_color" />
+                                                   </styleClass>
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Circle fx:id="profileImageCircle" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                 </children>
+                              </HBox>
+                              <ScrollPane fx:id="listOfProductsScrollPane" focusTraversable="false" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="white_background" stylesheets="@salesperson.css" vbarPolicy="NEVER">
+                                 <content>
+                                    <FlowPane fx:id="productsContainer" hgap="15.0" maxWidth="-Infinity" prefHeight="612.0" prefWidth="919.0" rowValignment="TOP" style="-fx-background-color: #e5eaee;" vgap="15.0">
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </FlowPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox fx:id="sideCustomerOrder" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="320.0" spacing="20.0" styleClass="customer_order" stylesheets="@salesperson.css">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <children>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label styleClass="payment" stylesheets="@salesperson.css" text="Current order" />
+                                    <Pane HBox.hgrow="ALWAYS" />
+                                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="round_icon" stylesheets="@salesperson.css" textAlignment="CENTER">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="INFO" size="15" />
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <VBox fx:id="emailBorder" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="50.0" style="-fx-border-radius: 5;" styleClass="normal_border" stylesheets="@salesperson.css">
+                                 <children>
+                                    <Label styleClass="textfield_label" stylesheets="@salesperson.css" text="Customer name" translateX="-80.0" translateY="-8.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="2.0" right="2.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <FontAwesomeIconView fill="#cccccc" glyphName="USER" onMousePressed="#togglePassword" size="18">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </FontAwesomeIconView>
+                                          <TextField fx:id="customerName" maxWidth="1.7976931348623157E308" promptText="Please enter customer's name" styleClass="text_field" stylesheets="@../login/loginpage.css" HBox.hgrow="ALWAYS">
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" />
+                                             </padding>
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <ScrollPane fx:id="listOfOrderScrollPane" hbarPolicy="NEVER" maxHeight="260.0" minHeight="260.0" prefHeight="260.0" prefWidth="200.0" style="-fx-background-color: white;" stylesheets="@salesperson.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <VBox fx:id="listOfOrderVBox" maxWidth="1.7976931348623157E308" minHeight="245.0" prefWidth="280.0" style="-fx-background-color: white;" stylesheets="@salesperson.css">
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </content>
+                                 <cursor>
+                                    <Cursor fx:constant="OPEN_HAND" />
+                                 </cursor>
+                              </ScrollPane>
+                              <VBox spacing="40.0" styleClass="dotted_border_top" stylesheets="@salesperson.css">
+                                 <children>
+                                    <VBox spacing="15.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label styleClass="payment" stylesheets="@salesperson.css" text="Total:" />
+                                                <Pane HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="totalCost" styleClass="payment" stylesheets="@salesperson.css" text="0" />
+                                             </children>
+                                          </HBox>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#03405c" height="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="280.0" />
+                                          <Label styleClass="payment" stylesheets="@salesperson.css" text="Payment Method" />
+                                          <HBox maxWidth="1.7976931348623157E308">
+                                             <children>
+                                                <Label fx:id="cashPaymentMethod" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#toggloPaymentMethod" prefHeight="75.0" prefWidth="85.0" stylesheets="@salesperson.css" text="Cash" textAlignment="CENTER">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="MONEY" size="20" />
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <styleClass>
+                                                      <String fx:value="payment_method" />
+                                                      <String fx:value="selected_payment_method" />
+                                                   </styleClass>
+                                                </Label>
+                                                <Pane HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="debitPaymentMethod" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#toggloPaymentMethod" prefHeight="75.0" prefWidth="85.0" styleClass="payment_method" stylesheets="@salesperson.css" text="Debit" textAlignment="CENTER">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="CREDIT_CARD" size="20" />
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Label>
+                                                <Pane HBox.hgrow="ALWAYS" />
+                                                <Label fx:id="transferPaymentMethod" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#toggloPaymentMethod" prefHeight="75.0" prefWidth="85.0" styleClass="payment_method" stylesheets="@salesperson.css" text="Transfer" textAlignment="CENTER">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="MOBILE_PHONE" size="20" />
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Button fx:id="completeButton" disable="true" focusTraversable="false" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#completeTransaction" prefHeight="60.0" styleClass="background_radius" stylesheets="@salesperson.css" text="Process Transaction" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+      <VBox fx:id="invalidDetailVBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" spacing="10.0" stylesheets="@../login/loginpage.css" visible="false">
+         <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="75.0" style="-fx-background-radius: 50%;" styleClass="warning_red" stylesheets="@../login/loginpage.css">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="40">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+            <Label stylesheets="@../login/loginpage.css" text="Error">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="warning_text" />
+                  <String fx:value="warning_header" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="errorMessage" styleClass="warning_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </Label>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeWarningBox" prefHeight="50.0" prefWidth="200.0" stylesheets="@../login/loginpage.css" text="Close" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="warning_red" />
+                  <String fx:value="background_radius" />
+                  <String fx:value="textfield_label" />
+               </styleClass>
+            </Button>
+         </children>
+         <styleClass>
+            <String fx:value="white_background" />
+            <String fx:value="background_radius" />
+         </styleClass>
+         <effect>
+            <DropShadow />
+         </effect>
+      </VBox>
+      <ProgressIndicator fx:id="loadingBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" visible="false" />
+      <VBox fx:id="printOpionPopUp" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" spacing="10.0" stylesheets="@../login/loginpage.css" visible="false">
+         <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="75.0" style="-fx-background-radius: 50%;" styleClass="success_green" stylesheets="@../login/loginpage.css">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="40">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </FontAwesomeIconView>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+            <Label stylesheets="@../login/loginpage.css" text="Success">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="success_text" />
+                  <String fx:value="warning_header" />
+               </styleClass>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="successMessage1" styleClass="success_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeWarningBox" prefHeight="50.0" prefWidth="100.0" stylesheets="@../login/loginpage.css" text="Close" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="success_green" />
+                        <String fx:value="background_radius" />
+                        <String fx:value="textfield_label" />
+                     </styleClass>
+                  </Button>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#printReceipt" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #03405c;" stylesheets="@../login/loginpage.css" text="Print" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="background_radius" />
+                        <String fx:value="textfield_label" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <styleClass>
+            <String fx:value="white_background" />
+            <String fx:value="background_radius" />
+         </styleClass>
+         <effect>
+            <DropShadow />
+         </effect>
+      </VBox>
+   </children>
+</StackPane>

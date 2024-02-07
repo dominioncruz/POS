@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1360.0" styleClass="dark-background" stylesheets="@manager.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.manager.ManagerController">
+   <children>
+      <VBox maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="280.0" style="-fx-background-color: white;" stylesheets="@manager.css">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" stylesheets="@manager.css" text="Notifications">
+               <graphic>
+                  <FontAwesomeIconView fill="#03405c" glyphName="BELL" size="25" translateX="-10.0" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="noticifcation_text" />
+                  <String fx:value="sidebar_text_color" />
+               </styleClass>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </Label>
+            <Pane VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER_LEFT" onMousePressed="#signOut" prefHeight="80.0" spacing="15.0" styleClass="signOut" stylesheets="@manager.css">
+               <children>
+                  <FontAwesomeIconView glyphName="SIGN_OUT" size="25" />
+                  <Label text="Sign Out" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </HBox>
+         </children>
+         <padding>
+            <Insets top="40.0" />
+         </padding>
+      </VBox>
+      <VBox maxWidth="1.7976931348623157E308" spacing="25.0" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" stylesheets="@manager.css">
+               <children>
+                  <Label stylesheets="@manager.css" text="Dashboard">
+                     <styleClass>
+                        <String fx:value="header" />
+                        <String fx:value="sidebar_text_color" />
+                     </styleClass>
+                  </Label>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Circle fx:id="profilePicture" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <VBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="fullName" stylesheets="@manager.css" text="Miracle Nnadiukwu">
+                           <styleClass>
+                              <String fx:value="poppins_font_name" />
+                              <String fx:value="sidebar_text_color" />
+                           </styleClass>
+                        </Label>
+                        <Label stylesheets="@manager.css" text="Manager">
+                           <graphic>
+                              <FontAwesomeIconView fill="#03405c" glyphName="USER" size="15" />
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="poppins_font_name" />
+                              <String fx:value="sidebar_text_color" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+            </HBox>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox spacing="20.0">
+                     <children>
+                        <VBox style="-fx-background-color: white; -fx-background-radius: 10;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
+                                    <Label styleClass="header" stylesheets="@manager.css" text="Sales" />
+                                    <Pane HBox.hgrow="ALWAYS" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button fx:id="dailySalesButton" focusTraversable="false" mnemonicParsing="false" onAction="#toggleDailySales" stylesheets="@manager.css" text="Daily">
+                                             <styleClass>
+                                                <String fx:value="buttonStyle" />
+                                                <String fx:value="selectedButton" />
+                                                <String fx:value="poppins_font_name" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button fx:id="weeklySalesButton" focusTraversable="false" mnemonicParsing="false" onAction="#toggleWeeklySales" stylesheets="@manager.css" text="Weekly">
+                                             <styleClass>
+                                                <String fx:value="buttonStyle" />
+                                                <String fx:value="poppins_font_name" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button fx:id="monthlySalesButton" focusTraversable="false" mnemonicParsing="false" onAction="#toggleMonthlySales" stylesheets="@manager.css" text="Monthly">
+                                             <styleClass>
+                                                <String fx:value="buttonStyle" />
+                                                <String fx:value="poppins_font_name" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button fx:id="yearlySalesButton" focusTraversable="false" mnemonicParsing="false" onAction="#toggleYearlySales" stylesheets="@manager.css" text="Yearly">
+                                             <styleClass>
+                                                <String fx:value="buttonStyle" />
+                                                <String fx:value="poppins_font_name" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <StackPane>
+                                 <children>
+                                    <BarChart fx:id="dailyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                    <BarChart fx:id="weeklyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                    <BarChart fx:id="monthlyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                    <BarChart fx:id="yearlyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </StackPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="330.0" prefWidth="200.0" style="-fx-background-color: #e5eaee;" vbarPolicy="NEVER">
+                           <content>
+                              <TableView fx:id="cashierSalesTable" focusTraversable="false" prefHeight="330.0" prefWidth="620.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                                <columns>
+                                  <TableColumn fx:id="name" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" sortable="false" text="name" />
+                                    <TableColumn fx:id="email_address" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" sortable="false" text="email_address" />
+                                    <TableColumn fx:id="sales" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" sortable="false" text="sales" />
+                                    <TableColumn fx:id="total" editable="false" maxWidth="142.0" minWidth="142.0" prefWidth="142.0" resizable="false" sortable="false" text="total" />
+                                </columns>
+                              </TableView>
+                           </content>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+                  <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="380.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #ff0f0f; -fx-background-radius: 10;" translateY="-30.0">
+                                       <graphic>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="DOLLAR" size="30" />
+                                       </graphic>
+                                       <effect>
+                                          <Blend />
+                                       </effect>
+                                    </Label>
+                                    <Pane HBox.hgrow="ALWAYS" />
+                                    <VBox alignment="CENTER_RIGHT" spacing="5.0">
+                                       <children>
+                                          <Label styleClass="header" stylesheets="@manager.css" text="Earnings" textFill="#bbbbbb" />
+                                          <Label fx:id="totalDailyEarning" styleClass="hufe_number" stylesheets="@manager.css" text="N 5000000" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label styleClass="poppins_font_name" stylesheets="@manager.css" text="Last 24 Hours" textFill="#bbbbbb" translateX="10.0">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="CALENDAR" size="20" translateX="-10.0" />
+                                 </graphic>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="15.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0">
+                           <children>
+                              <Rectangle fx:id="bestSellerImage" arcHeight="50.0" arcWidth="50.0" fill="DODGERBLUE" height="250.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0" />
+                              <Label fx:id="bestSellerTotal" alignment="CENTER" prefHeight="60.0" prefWidth="120.0" style="-fx-background-color: white; -fx-background-radius: 10;" styleClass="header" stylesheets="@manager.css" text="350 Sales!" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                              <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="240.0" style="-fx-background-color: #03405c; -fx-text-fill: white; -fx-background-radius: 10;" styleClass="poppins_font_name" stylesheets="@manager.css" text="Highest selling product" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="170.0" />
+                           </children>
+                        </AnchorPane>
+                        <TableView fx:id="productSalesTable" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="375.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+                           <columns>
+                              <TableColumn fx:id="product" editable="false" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" resizable="false" sortable="false" text="name" />
+                              <TableColumn fx:id="items_sold" editable="false" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" sortable="false" text="items_sold" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="30.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>

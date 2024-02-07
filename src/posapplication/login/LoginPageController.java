@@ -111,12 +111,11 @@ public class LoginPageController implements Initializable {
                         Stage currentStage = (Stage) entirePage.getScene().getWindow();
                         currentStage.close();
                         switch (rs.getString("role").replaceAll("\\s+", "")) {
-                            case "InfoTech":
-                                centerScreenInstance.centerInfoTech(currentStage, rs, "/posapplication/infotech/infotech.fxml", databaseConnection);
-                                break;
-                            case "Inventory":
-                                centerScreenInstance.centerInventory(currentStage, rs, "/posapplication/inventory/inventory.fxml", databaseConnection);
-                                break;
+                            case "InfoTech" -> centerScreenInstance.centerInfoTech(currentStage, rs, "/posapplication/infotech/infotech.fxml", databaseConnection);
+                            case "Inventory" -> centerScreenInstance.centerInventory(currentStage, rs, "/posapplication/inventory/inventory.fxml", databaseConnection);
+                            case "Cashier" -> centerScreenInstance.centerSales(currentStage, rs, "/posapplication/cashier/cashier.fxml", databaseConnection);
+                            case "Manager" -> centerScreenInstance.centerManager(currentStage, rs, "/posapplication/manager/manager.fxml", databaseConnection);
+                        
                         }
 
                     } else {

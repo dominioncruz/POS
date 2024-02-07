@@ -1,0 +1,148 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+@font-face {
+    font-family: 'Righteous';
+    src: url('../posapplication/fonts/Righteous-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Poppins Semibold';
+    src: url('../posapplication/fonts/Poppins-Semibold.ttf');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../posapplication/fonts/Poppins-Regular.ttf');
+}
+
+.ash_background, ash_background:disabled{
+    -fx-background-color: #e5eaee;
+}
+
+.white_background, white_background:disabled{
+    -fx-background-color: #f5f5f5;
+}
+
+.tab FontAwesomeIconView, .tab:disabled FontAwesomeIconView{
+    -fx-fill: #777777;
+}
+
+.tab{
+    -fx-border-color: #e5eaee;
+}
+
+.tab Label{
+    -fx-text-fill: #777777;
+}
+
+.tab Rectangle{
+    -fx-fill: #e5eaee;
+}
+
+.tab:hover *, .selected *, .selected:disabled *, .tab:disabled *{
+    -fx-fill: #03405c;
+}
+
+.signOut FontAwesomeIconView{
+    -fx-fill: #777777;
+}
+
+.signOut Label{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+    -fx-text-fill: #777777;
+    
+}
+
+.signOut:hover{
+    -fx-background-color: #ff0f0f;
+}
+.signOut:hover FontAwesomeIconView{
+    -fx-fill: white;
+}
+
+.signOut:hover Label{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+    -fx-text-fill: white;
+    
+}
+
+.customer_order{
+    -fx-border-radius: 10;
+    -fx-background-color: white;
+}
+
+.payment{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+
+.round_icon{
+    -fx-border-radius: 50%;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
+
+.normal_border{
+    -fx-border-color: #bbbbbb
+}
+
+
+
+.text_field{
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+
+.text_field:active {
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+}
+
+
+.text_color{
+    -fx-text-fill: black;
+}
+
+
+.textfield_label, .textfield_label:disabled{
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+.background_radius, .background_radius:disabled{
+    -fx-background-radius: 10;
+    -fx-background-color: #03405c;
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+
+.payment_method, .payment_method:disabled{
+    -fx-border-radius: 10;
+    -fx-border-color: #bbbbbb;
+    -fx-border-width: 2;
+    -fx-font-family: "Poppins Semibold";
+    -fx-font-size: 14px;
+}
+.payment_method:hover, .selected_payment_method, .selected_payment_method:disabled{
+    -fx-background-color: #d1effd;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #03405c;
+    -fx-border-width: 2;
+    -fx-font-family: "Poppins Semibold";
+    -fx-font-size: 14px;
+}
+
+.dotted_border_top{
+    -fx-border-width: 5 0 0 0;
+    -fx-border-style: dotted;
+    -fx-border-color: #bbbbbb;
+}

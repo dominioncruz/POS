@@ -5,6 +5,7 @@
 package posapplication.reusableFunctions;
 
 import java.awt.image.BufferedImage;
+import java.sql.Statement;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -190,7 +191,7 @@ public class DatabaseConnection {
     }
 
     public boolean createNewProductInDatabase(
-        String product_code, String productNameInput, String manufacturer_name, LocalDate production_date, LocalDate expiry_date, String quantity, String price, Image productImage, String productDescription, String low_stock_count, String query) throws IOException, SQLException {
+            String product_code, String productNameInput, String manufacturer_name, LocalDate production_date, LocalDate expiry_date, String quantity, String price, Image productImage, String productDescription, String low_stock_count, String query) throws IOException, SQLException {
         BufferedImage bImage = SwingFXUtils.fromFXImage(productImage, null);
         ByteArrayOutputStream s = new ByteArrayOutputStream();
         ImageIO.write(bImage, "png", s);
@@ -212,9 +213,9 @@ public class DatabaseConnection {
             return rs > 0;
         }
     }
-    
-     public boolean updateProductInDatabase(
-        String product_code, String productNameInput, String manufacturer_name, LocalDate production_date, LocalDate expiry_date, String quantity, String price, Image productImage, String productDescription, String low_stock_count, String query) throws IOException, SQLException {
+
+    public boolean updateProductInDatabase(
+            String product_code, String productNameInput, String manufacturer_name, LocalDate production_date, LocalDate expiry_date, String quantity, String price, Image productImage, String productDescription, String low_stock_count, String query) throws IOException, SQLException {
         BufferedImage bImage = SwingFXUtils.fromFXImage(productImage, null);
         ByteArrayOutputStream s = new ByteArrayOutputStream();
         ImageIO.write(bImage, "png", s);
@@ -236,6 +237,45 @@ public class DatabaseConnection {
             int rs = preparedStatement.executeUpdate();
             return rs > 0;
         }
+    }
+
+    public boolean addNewSaleForSeller(
+            String buyerName,
+            String product_code,
+            String quantity,
+            String amount,
+            String paymentMethodUsed,
+            String userEmail
+    ) throws SQLException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT into sales (customer_name, product_code, quantity, amount, payment_method, seller_email) values (?, ?, ?, ?, ?, ?)")) {
+            if (buyerName.equals("")) {
+                buyerName = "No name";
+            }
+            preparedStatement.setString(1, buyerName);
+            preparedStatement.setString(2, product_code);
+            preparedStatement.setInt(3, Integer.parseInt(quantity));
+            preparedStatement.setInt(4, Integer.parseInt(amount));
+            preparedStatement.setString(5, paymentMethodUsed);
+            preparedStatement.setString(6, userEmail);
+            int rs = preparedStatement.executeUpdate();
+            if (rs > 0) {
+                String updateInventorySQL = "UPDATE products SET quantity = quantity - ? WHERE product_code = ?";
+                try (PreparedStatement updateInventoryStatement = connection.prepareStatement(updateInventorySQL)) {
+                    updateInventoryStatement.setInt(1, Integer.parseInt(quantity));
+                    updateInventoryStatement.setString(2, product_code);
+                    rs = updateInventoryStatement.executeUpdate();
+                    return rs > 0;
+                }
+            }
+        }
+        return false;
+
+    }
+
+    public ResultSet fetchRelevantManagerData(String query) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet rs = preparedStatement.executeQuery(query);
+        return rs;
     }
 
 }

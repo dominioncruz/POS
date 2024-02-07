@@ -499,7 +499,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label fx:id="errorMessage" styleClass="warning_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+            <Label fx:id="errorMessage" styleClass="warning_text" stylesheets="@../login/loginpage.css" text="Transaction failed">
                <font>
                   <Font size="16.0" />
                </font>
@@ -553,7 +553,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label fx:id="successMessage" styleClass="success_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+            <Label fx:id="successMessage" styleClass="success_text" stylesheets="@../login/loginpage.css" text="Product added successfully">
                <font>
                   <Font size="16.0" />
                </font>

@@ -12,7 +12,7 @@
 }
 
 @font-face {
-    font-family: 'Righteous';
+    font-family: 'Poppins Semibold';
     src: url('../posapplication/fonts/Poppins-Semibold.ttf');
 }
 
@@ -29,11 +29,6 @@
 
 .noticifcation FontAwesomeIconView{
     -fx-fill:  white;
-}
-
-.noticifcation_text, .noticifcation_text:disabled{
-    -fx-font-size: 18px;
-    -fx-font-family: 'Righteous';
 }
 
 .noticifcation_text, .noticifcation_text:disabled{
@@ -109,8 +104,4 @@
 .buttonStyle, .buttonStyle:disabled{
     -fx-background-color: #03405C;
     -fx-background-radius: 50%;
-        
-        
-    
-    
 }

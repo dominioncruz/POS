@@ -33,6 +33,7 @@ import posapplication.reusableFunctions.DatabaseConnection;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import posapplication.components.product.ProductController;
@@ -69,7 +70,9 @@ public class inventoryMethods {
             InventoryController inventoryController,
             FlowPane productsContainer,
             product currentProduct,
-            Label actualSubmitButton
+            Label actualSubmitButton,
+            List<Node> productVBoxes,
+            ProductFunctions myProductFunctions
     ) {
         try {
             loadingBar.setVisible(true);
@@ -92,7 +95,7 @@ public class inventoryMethods {
                     metRequirements = false;
                     errorMessage.setText("Invalid expiry date");
                 } else {
-                    
+
                     boolean dataEntryState = databaseConnection.updateProductInDatabase(product_code.getText(), productNameInput.getText(), manufacturer_name.getText(), production_date.getValue(), expiry_date.getValue(), quantity.getText(), price.getText(), ((ImagePattern) imageContainer.getFill()).getImage(), productDescription.getText(), low_stock_count.getText(),
                             "UPDATE products SET product_code = ?, name = ?, manufacturer = ?, manufacturing_date = ?, expiry_date = ?, quantity = ?, price = ?, image = ?, description = ?, low_stock_count = ? WHERE product_code = ?");
                     if (dataEntryState == false) {
@@ -100,7 +103,15 @@ public class inventoryMethods {
                         errorMessage.setText("An occured somewhere");
                     } else {
                         successMessage.setText("Product updated successfully");
-                        updateProductValues(product_code.getText(), productNameInput.getText(), manufacturer_name.getText(), Date.valueOf(production_date.getValue()), Date.valueOf(expiry_date.getValue()), Integer.parseInt(quantity.getText()), Integer.parseInt(price.getText()), ((ImagePattern) imageContainer.getFill()).getImage(), Integer.parseInt(low_stock_count.getText()), productDescription.getText(), inventoryController, productsContainer, currentProduct);
+                        
+                          productsContainer.getChildren().clear();
+                        productVBoxes.clear();
+                        myProductFunctions.initializeProductList(productsContainer, inventoryController, databaseConnection);
+                        for (Node node : productsContainer.getChildren()) {
+                            if (node instanceof StackPane) {
+                                productVBoxes.add(node);
+                            }
+                        }
                         successBox.setVisible(true);
                         enitreScreen.setDisable(false);
                         resetFields(product_code, productNameInput, manufacturer_name, production_date, expiry_date, quantity, price, productDescription, low_stock_count, submitButton, editPageContainer, imageContainer, listOfProductsScrollPane, actualSubmitButton);
@@ -146,8 +157,10 @@ public class inventoryMethods {
             Rectangle imageContainer,
             InventoryController inventoryController,
             FlowPane productsContainer,
-            List<Node> listOfProducts,
-            Label actualSubmitButton
+            Label actualSubmitButton,
+            List<Node> productVBoxes,
+            ProductFunctions myProductFunctions
+            
     ) {
         try {
             loadingBar.setVisible(true);
@@ -177,11 +190,13 @@ public class inventoryMethods {
                         errorMessage.setText("An occured somewhere");
                     } else {
                         successMessage.setText("Product added successfully");
-                        product newProduct = addContentToView(product_code.getText(), productNameInput.getText(), manufacturer_name.getText(), Date.valueOf(production_date.getValue()), Date.valueOf(expiry_date.getValue()), Integer.parseInt(quantity.getText()), Integer.parseInt(price.getText()), ((ImagePattern) imageContainer.getFill()).getImage(), Integer.parseInt(low_stock_count.getText()), productDescription.getText(), inventoryController, productsContainer);
-                        listOfProducts.clear();
-                         for (Node node : productsContainer.getChildren()) {
-                            if (node instanceof VBox) {
-                                listOfProducts.add(node);
+
+                        productsContainer.getChildren().clear();
+                        productVBoxes.clear();
+                        myProductFunctions.initializeProductList(productsContainer, inventoryController, databaseConnection);
+                        for (Node node : productsContainer.getChildren()) {
+                            if (node instanceof StackPane) {
+                                productVBoxes.add(node);
                             }
                         }
                         successBox.setVisible(true);
@@ -251,7 +266,7 @@ public class inventoryMethods {
             InventoryController inventoryController,
             FlowPane productsContainer
     ) throws SQLException, IOException {
-        
+
         String productName = name;
         String productCode = productCodeFetched;
         String maunfacturer = maunfacturerName;
@@ -281,15 +296,17 @@ public class inventoryMethods {
 
         try {
             FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/product/product.fxml"));
-            VBox productVBox = fxmlloader.load();
+            StackPane productVBox = fxmlloader.load();
             ProductController currentProductController = fxmlloader.getController();
             currentProductController.setInventoryControllerReference(inventoryController);
             currentProductController.setData(newProduct);
             productVBox.getProperties().put("controller", currentProductController);
 
             productVBox.setOnMouseClicked(event -> {
+
                 try {
                     currentProductController.modifyProduct(newProduct);
+
                 } catch (SQLException ex) {
                     Logger.getLogger(ProductFunctions.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -301,42 +318,5 @@ public class inventoryMethods {
         }
         return null;
     }
-
-    public void updateProductValues(
-            String product_code,
-            String productNameInput,
-            String manufacturer_name,
-            Date production_date,
-            Date expiry_date,
-            int quantity,
-            int price,
-            Image productImage,
-            int low_stock_coun,
-            String productDescription,
-            InventoryController inventoryController,
-            FlowPane productsContainer,
-            product currentProduct
-    ) {
-        currentProduct.setProductCode(product_code);
-        currentProduct.setProductName(productNameInput);
-        currentProduct.setMaunfacturer(manufacturer_name);
-        currentProduct.setManufacturing_date(production_date);
-        currentProduct.setExpiry_date(expiry_date);
-        currentProduct.setQuantity(quantity);
-        currentProduct.setPrice(price);
-        currentProduct.setImage(productImage);
-        currentProduct.setLow_stock_count(low_stock_coun);
-        currentProduct.setDescription(productDescription);
-
-        for (Node node : productsContainer.getChildren()) {
-            if (node instanceof VBox productVBox) {
-                ProductController productController = (ProductController) productVBox.getProperties().get("controller");
-                if (productController != null && productController.getCurrentProduct() == currentProduct) {
-                    // Update the data in the UI
-                    productController.setData(currentProduct);
-                    break;
-                }
-            }
-        }
-    }
+    
 }

@@ -20,6 +20,8 @@ import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import java.sql.ResultSet;
 import posapplication.inventory.inventoryMethods;
+import posapplication.cashier.SalespersonController;
+import posapplication.cashier.salesPersonFunctions;
 
 /**
  *
@@ -28,6 +30,7 @@ import posapplication.inventory.inventoryMethods;
 public class ProductFunctions {
 
     inventoryMethods myInventoryMethods = new inventoryMethods();
+    salesPersonFunctions salesMethods = new salesPersonFunctions();
 
     //private final DatabaseConnection currentConnection;
     public ProductFunctions() throws ClassNotFoundException {
@@ -56,7 +59,26 @@ public class ProductFunctions {
 
     }
     
-    public void updateProductValues(){
-        
+    public void initializeProductList(FlowPane productsContainer, SalespersonController salesController, DatabaseConnection dbConnect) throws SQLException, IOException {
+        ResultSet rs = dbConnect.getAllProducts();
+        while (rs.next()) {
+            java.sql.Blob columnValue = rs.getBlob("image");
+            byte[] imageData = columnValue.getBytes(1, (int) columnValue.length());
+            Image image = new Image(new ByteArrayInputStream(imageData));
+            salesMethods.addContentToView(rs.getString("product_code"),
+                    rs.getString("name"),
+                    rs.getString("manufacturer"),
+                    rs.getDate("manufacturing_date"),
+                    rs.getDate("expiry_date"),
+                    rs.getInt("quantity"),
+                    rs.getInt("price"),
+                    image,
+                    rs.getInt("low_stock_count"),
+                    rs.getString("description"),
+                    salesController,
+                    productsContainer
+            );
+        }
+
     }
 }

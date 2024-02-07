@@ -1,0 +1,36 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+
+.dotted_border_bottom{
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: #bbbbbb;
+}
+
+
+
+
+.poppins_font_name{
+    -fx-font-family: "Poppins Semibold";
+}
+.prodName{
+    -fx-font-size: 14;
+}
+
+.subProd{
+    -fx-font-size: 10;
+    -fx-text-fill: #bbbbbb;
+}
+
+.prod{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #bbbbbb
+}
+
+
+.payment{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+

@@ -1,0 +1,96 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+
+@font-face {
+    font-family: 'Righteous';
+    src: url('../posapplication/fonts/Righteous-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Poppins Semibold';
+    src: url('../posapplication/fonts/Poppins-Semibold.ttf');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../posapplication/fonts/Poppins-Regular.ttf');
+}
+
+.ash_background, ash_background:disabled{
+    -fx-background-color: white;
+}
+
+.sidebar_text_color{
+    -fx-text-fill: #03405c;
+}
+
+.work, .work:disabled {
+    -fx-font-family: 'Righteous';
+    -fx-font-size: 15px
+}
+
+.poppins_font_name, .poppins_font_name:disabled{
+    -fx-font-family: 'Poppins Semibold';
+    -fx-font-size: 14px
+}
+
+.poppins_sub_font, .poppins_sub_font:disabled{
+    -fx-font-family: 'Poppins Semibold';
+    -fx-font-size: 10px
+}
+
+.header, .header:disabled{
+    -fx-font-family: 'Poppins Semibold';
+    -fx-font-size: 20px
+}
+
+.dark-background{
+     -fx-background-color: #e5eaee;
+}
+
+.buttonStyle, .buttonStyle:disabled{
+    -fx-background-color: white;
+}
+.selectedButton, .selectedButton:disabled, .buttonStyle:hover{
+    -fx-background-color: #f5fbff;
+}
+
+.otherButton, .otherButton:disabled{
+    -fx-background-color:  #03405c;
+}
+
+.noticifcation_text, .noticifcation_text:disabled{
+    -fx-font-size: 18px;
+    -fx-font-family: 'Righteous';
+}
+
+.signOut:hover{
+    -fx-background-color: #ff0f0f;
+}
+
+.signOut:hover Label {
+    -fx-text-fill:  white;
+    -fx-font-size: 16px
+}
+
+.signOut:hover FontAwesomeIconView{
+    -fx-fill:  white;
+}
+
+.signOut Label, .signOut:disabled Label{
+    -fx-font-size: 16px;
+    -fx-font-family: 'Righteous';
+}
+
+.hufe_number, .hufe_number:disabled{
+    -fx-font-family: 'Poppins Semibold';
+    -fx-font-size: 30px
+}
+
+

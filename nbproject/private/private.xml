@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/POSApplication.java</file>
-            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/components/product/ProductFunctions.java</file>
-            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/components/product/ProductController.java</file>
-            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/inventory/inventoryMethods.java</file>
-            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/inventory/InventoryController.java</file>
+            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/manager/managerFunctions.java</file>
+            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/reusableFunctions/DatabaseConnection.java</file>
+            <file>file:/C:/Users/HP%20PROBOOK%20430%20G3/Documents/javaTryouts/POSApplication/src/posapplication/manager/ManagerController.java</file>
         </group>
     </open-files>
 </project-private>

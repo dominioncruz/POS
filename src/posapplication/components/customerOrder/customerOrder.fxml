@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="260.0" spacing="2.0" style="-fx-background-color: white;" styleClass="dotted_border_bottom" stylesheets="@customerorder.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.components.customerOrder.CustomerOrderController">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <VBox>
+               <children>
+                  <Label fx:id="productName" stylesheets="@customerorder.css" text="Cinnamon">
+                     <styleClass>
+                        <String fx:value="poppins_font_name" />
+                        <String fx:value="prodName" />
+                     </styleClass>
+                  </Label>
+                  <Label fx:id="companyName" stylesheets="@customerorder.css" text="company" translateY="-4.0">
+                     <styleClass>
+                        <String fx:value="poppins_font_name" />
+                        <String fx:value="subProd" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </VBox>
+            <Pane HBox.hgrow="ALWAYS" />
+            <FontAwesomeIconView fill="#ff0f0f" glyphName="TRASH" onMousePressed="#removeItem" size="25">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></FontAwesomeIconView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <HBox spacing="8.0">
+               <children>
+                  <Label alignment="CENTER" onMousePressed="#reduceCount" prefHeight="20.0" prefWidth="20.0" style="-fx-border-color: #bbbbbb; -fx-border-radius: 5;">
+                     <graphic>
+                        <FontAwesomeIconView fill="#03405c" glyphName="MINUS" size="8" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label fx:id="count" styleClass="payment" stylesheets="@customerorder.css" text="5" />
+                  <Label alignment="CENTER" onMousePressed="#increaseCount" prefHeight="20.0" prefWidth="20.0" style="-fx-background-radius: 5; -fx-background-color: #03405c;">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="8" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </HBox>
+            <Pane HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Label fx:id="cost" styleClass="payment" stylesheets="@customerorder.css" text="50000" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" top="10.0" />
+   </padding>
+</VBox>

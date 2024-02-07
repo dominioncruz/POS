@@ -4,19 +4,25 @@
  */
 package posapplication.components.product;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import posapplication.inventory.InventoryController;
 import posapplication.models.product;
+import posapplication.cashier.SalespersonController;
 
 /**
  * FXML Controller class
@@ -26,7 +32,7 @@ import posapplication.models.product;
 public class ProductController implements Initializable {
 
     @FXML
-    private VBox card;
+    private StackPane card;
     @FXML
     private Label quantity;
     @FXML
@@ -45,9 +51,16 @@ public class ProductController implements Initializable {
     private Label product_code;
 
     private InventoryController inventoryController;
+    SalespersonController salesController;
     private product currentProduct;
+    @FXML
+    private Label outOfStockLabel;
+    @FXML
+    private Label outOfStockLabel1;
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -59,7 +72,11 @@ public class ProductController implements Initializable {
     public void setInventoryControllerReference(InventoryController inventoryController) {
         this.inventoryController = inventoryController;
     }
-    
+
+    public void setSalesControllerReference(SalespersonController salesController) {
+        this.salesController = salesController;
+    }
+
     public product getCurrentProduct() {
         return currentProduct;
     }
@@ -75,12 +92,26 @@ public class ProductController implements Initializable {
         expiry_date.setText(dateFormat.format(newProduct.getExpiry_date()));
         product_code.setText(newProduct.getProductCode());
         product_image.setFill(new ImagePattern(newProduct.getImage()));
+        if(newProduct.getQuantity() == 0){
+            outOfStockLabel.setVisible(true);
+        }
+        
+        LocalDate expiryDate = newProduct.getExpiry_date().toLocalDate();
+        LocalDate currentDate = LocalDate.now();
 
+        if (currentDate.equals(expiryDate) || currentDate.isAfter(expiryDate)) {
+            outOfStockLabel1.setVisible(true);
+        }
+
+    }
+
+    public void modifyProduct(product newProduct) throws SQLException {
+        inventoryController.modifyProductDetails(newProduct.getProductCode(), newProduct.getDescription(), newProduct.getExpiry_date(), newProduct.getImage(), newProduct.getLow_stock_count(), newProduct.getManufacturing_date(), newProduct.getMaunfacturer(), newProduct.getPrice(), newProduct.getProductName(), newProduct.getQuantity(), newProduct);
     }
     
-     public void modifyProduct(product newProduct) throws SQLException {
-           inventoryController.modifyProductDetails(newProduct.getProductCode(), newProduct.getDescription(), newProduct.getExpiry_date(), newProduct.getImage(), newProduct.getLow_stock_count(), newProduct.getManufacturing_date(), newProduct.getMaunfacturer(), newProduct.getPrice(), newProduct.getProductName(),  newProduct.getQuantity(), newProduct);
+    
+    public void addProductToCart(product newProduct) throws SQLException, IOException {
+        salesController.addToCart(newProduct.getProductCode(), newProduct.getDescription(), newProduct.getExpiry_date(), newProduct.getImage(), newProduct.getLow_stock_count(), newProduct.getManufacturing_date(), newProduct.getMaunfacturer(), newProduct.getPrice(), newProduct.getProductName(), newProduct.getQuantity(), newProduct);
     }
-
 
 }

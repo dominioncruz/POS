@@ -5,14 +5,17 @@
 package posapplication.manager;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import posapplication.reusableFunctions.DatabaseConnection;
 import java.sql.ResultSet;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
@@ -22,6 +25,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -32,9 +36,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import posapplication.components.message.MessageController;
 import posapplication.models.employeeSales;
+import posapplication.models.message;
 import posapplication.models.salesAmount;
 import posapplication.models.salesSummary;
 
@@ -413,5 +421,49 @@ public class managerFunctions {
         // Set the data to the table
         productSalesTable.setItems(topSellersList);
     }
+    
+    public void addBirthdayToView(
+            ResultSet rs,
+            ManagerController managerController,
+            VBox messagesContainer
+    ) throws SQLException, IOException {
+        
+        
+    
+        LocalTime time = LocalTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Format the LocalTime object using the formatter
+        String formattedTime = time.format(formatter);
+        
+        String title = "Birthday" ;
+        String summary = rs.getString("first_name") + "'s birthday";
+        String content = "Today is " + rs.getString("first_name") + "'s birthday, do wish them a happy birthday";
+        
+        message currentMessage = new message();
+
+        currentMessage.setTime(formattedTime);
+        currentMessage.setTitle(title);
+        currentMessage.setSummary(summary);
+        currentMessage.setContent(content);
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/message/message.fxml"));
+            HBox currentMessageHBox = fxmlloader.load();
+            MessageController currentMessageController = fxmlloader.getController();
+            currentMessageController.setManagerControllerReference(managerController);
+            currentMessageController.setData(currentMessage, rs.getString("email"));
+            currentMessageHBox.getProperties().put("controller", currentMessageController);
+
+            currentMessageHBox.setOnMouseClicked(event -> {
+                    currentMessageController.openManagerMessage(currentMessage);
+            });
+            messagesContainer.getChildren().add(currentMessageHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 }

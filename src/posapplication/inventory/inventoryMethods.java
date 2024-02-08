@@ -38,6 +38,12 @@ import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import posapplication.components.product.ProductController;
 import posapplication.components.product.ProductFunctions;
+import java.sql.ResultSet;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javafx.scene.layout.HBox;
+import posapplication.components.message.MessageController;
+import posapplication.models.message;
 
 /**
  *
@@ -317,6 +323,49 @@ public class inventoryMethods {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public void addBirthdayToView(
+            ResultSet rs,
+            InventoryController inventoryController,
+            VBox messagesContainer
+    ) throws SQLException, IOException {
+        
+        
+    
+        LocalTime time = LocalTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Format the LocalTime object using the formatter
+        String formattedTime = time.format(formatter);
+        
+        String title = "Birthday" ;
+        String summary = rs.getString("first_name") + "'s birthday";
+        String content = "Today is " + rs.getString("first_name") + "'s birthday, do wish them a happy birthday";
+        
+        message currentMessage = new message();
+
+        currentMessage.setTime(formattedTime);
+        currentMessage.setTitle(title);
+        currentMessage.setSummary(summary);
+        currentMessage.setContent(content);
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/message/message.fxml"));
+            HBox currentMessageHBox = fxmlloader.load();
+            MessageController currentMessageController = fxmlloader.getController();
+            currentMessageController.setInventoryControllerReference(inventoryController);
+            currentMessageController.setData(currentMessage, rs.getString("email"));
+            currentMessageHBox.getProperties().put("controller", currentMessageController);
+
+            currentMessageHBox.setOnMouseClicked(event -> {
+                    currentMessageController.openInventoryMessage(currentMessage);
+            });
+            messagesContainer.getChildren().add(currentMessageHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

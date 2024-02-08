@@ -49,6 +49,7 @@ import javafx.scene.control.Button;
 import posapplication.reusableFunctions.PasswordGenerator;
 import posapplication.reusableFunctions.mailSender;
 import java.sql.Time;
+import posapplication.models.message;
 import posapplication.reusableFunctions.timerClass;
 /**
  * FXML Controller class
@@ -167,6 +168,20 @@ public class InfotechController implements Initializable {
     private ComboBox<Integer> hourComboBox;
     @FXML
     private ComboBox<Integer> minuteComboBox;
+    @FXML
+    private VBox birthdayCard;
+    @FXML
+    private Label userNameBirthdayMessage;
+    @FXML
+    private VBox messagesVBox;
+    @FXML
+    private VBox messageBox;
+    @FXML
+    private Label messageTitle;
+    @FXML
+    private Label messageSummary;
+    @FXML
+    private Label messageContent;
 
     public InfotechController() throws ClassNotFoundException {
         this.currentInfoTechMethods = new UniqueInfoTechMethods();
@@ -177,7 +192,7 @@ public class InfotechController implements Initializable {
         this.currentMailSender = new mailSender();
     }
 
-    public void setData(HashMap<String, Object> data) throws SQLException {
+    public void setData(HashMap<String, Object> data) throws SQLException, IOException, IOException {
 
         userFullName.setText((String) data.get("firstname") + " " + (String) data.get("lastname"));
         userEmail.setText((String) data.get("email"));
@@ -198,6 +213,12 @@ public class InfotechController implements Initializable {
         currentInfoTechMethods.initializeInputFields(searchMap, firstNameSearchvalue, firstNameBorder1, lastNameSearchValue, lastNameBorder1, emailSearchValue, emailBorder1, phoneSearchValue, phoneBorder1);
         scheduleTime = currentInfoTechMethods.initializeScheduleTime(userEmail.getText(), hourComboBox, minuteComboBox, databaseConnection);
         timerClassToWorkWith = new timerClass(scheduleTime);
+        
+        ResultSet rs = databaseConnection.getBirthdays();
+        while(rs.next()){
+            currentInfoTechMethods.addBirthdayToView(rs, this, messagesVBox);
+        }
+        
     }
 
     /**
@@ -346,6 +367,27 @@ public class InfotechController implements Initializable {
         int minuteValue = minuteComboBox.getValue();
         currentInfoTechMethods.updateTime(hourValue, minuteValue, successBox, successMessage, errorMessage, invalidDetailVBox, databaseConnection, userEmail.getText(), loadingBar, entireScreen, scheduleTime, timerClassToWorkWith);
         
+    }
+    
+    public void showMessage(message currentMessage, String email){
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+        
+        if(email.equals(userEmail.getText())){
+            birthdayCard.setVisible(true);
+        }else{
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+        
+    }
+
+    @FXML
+    private void closeMessages(MouseEvent event) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
     }
 
 }

@@ -11,6 +11,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -24,7 +26,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1360.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.inventory.InventoryController">
    <children>
-      <BorderPane fx:id="enitreScreen" prefHeight="720.0" prefWidth="1360.0" styleClass="white_background" stylesheets="@inventory.css">
+      <BorderPane fx:id="enitreScreen" onMousePressed="#closeMessages" prefHeight="720.0" prefWidth="1360.0" styleClass="white_background" stylesheets="@inventory.css">
          <center>
             <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1010.0" BorderPane.alignment="TOP_CENTER">
                <children>
@@ -446,7 +448,14 @@
                         <Insets left="30.0" />
                      </padding>
                   </Label>
-                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #e5eaee;" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="listOfMessages" prefHeight="483.0" prefWidth="270.0" spacing="20.0" style="-fx-background-color: #e5eaee;" />
+                     </content>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </ScrollPane>
                   <HBox fx:id="signOutUser" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMousePressed="#signOut" spacing="13.0" styleClass="signOut" stylesheets="@inventory.css">
                      <children>
                         <FontAwesomeIconView fill="#03405c" glyphName="SIGN_OUT" size="25" />
@@ -579,6 +588,30 @@
          <effect>
             <DropShadow />
          </effect>
+      </VBox>
+      <VBox fx:id="birthdayCard" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" style="-fx-background-color: white; -fx-border-color: #de3d63; -fx-border-radius: 10;" visible="false">
+         <children>
+            <ImageView fitHeight="300.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/birthday_cake.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="userNameBirthdayMessage" styleClass="header" stylesheets="@../login/loginpage.css" text="Happy Birthday" textFill="#de3d63" />
+            <Label styleClass="textfield_label" stylesheets="@../login/loginpage.css" text="Thank you for being an integral part of our team" />
+         </children>
+         <padding>
+            <Insets bottom="80.0" left="60.0" right="60.0" top="50.0" />
+         </padding>
+      </VBox>
+      <VBox fx:id="messageBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" style="-fx-background-color: white; -fx-border-color: #de3d63; -fx-border-radius: 10;" visible="false">
+         <children>
+            <Label fx:id="messageTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="header" stylesheets="@../login/loginpage.css" text="Birthday" textFill="#de3d63" VBox.vgrow="ALWAYS" />
+            <Label fx:id="messageSummary" styleClass="textfield_label" stylesheets="@../login/loginpage.css" text="Today is Daniel's Birthday" />
+            <Label fx:id="messageContent" maxWidth="1.7976931348623157E308" wrapText="true" />
+         </children>
+         <padding>
+            <Insets bottom="80.0" left="60.0" right="60.0" top="50.0" />
+         </padding>
       </VBox>
    </children>
 </StackPane>

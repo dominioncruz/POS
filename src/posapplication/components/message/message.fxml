@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="220.0" spacing="15.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.components.message.MessageController">
+   <children>
+      <Rectangle fx:id="notiicationColorRetangle" fill="#de4c8a" height="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="5.0" />
+      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="notificationTime" styleClass="product_name" stylesheets="@../product/product.css" text="10:30" />
+            <HBox>
+               <children>
+                  <FlowPane hgap="20.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="170.0" vgap="5.0">
+                     <children>
+                        <Label fx:id="notificationTItle" stylesheets="@../product/product.css" text="Birthday">
+                           <styleClass>
+                              <String fx:value="description" />
+                              <String fx:value="product_color" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="notificationContent" stylesheets="@../product/product.css" text="Today is Miracle's birthday">
+                           <styleClass>
+                              <String fx:value="description" />
+                              <String fx:value="product_color" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                  </FlowPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets right="5.0" />
+   </padding>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</HBox>

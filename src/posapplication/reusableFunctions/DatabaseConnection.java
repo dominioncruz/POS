@@ -277,5 +277,12 @@ public class DatabaseConnection {
         ResultSet rs = preparedStatement.executeQuery(query);
         return rs;
     }
+    
+    public ResultSet getBirthdays() throws SQLException{
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM personal_details WHERE MONTH(date_of_birth) = MONTH(CURRENT_DATE) AND DAY(date_of_birth) = DAY(CURRENT_DATE)");
+        ResultSet rs = preparedStatement.executeQuery();
+        return rs;
+
+    }
 
 }

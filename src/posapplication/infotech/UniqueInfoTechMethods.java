@@ -5,6 +5,7 @@
 package posapplication.infotech;
 
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -28,6 +29,11 @@ import javafx.scene.shape.Rectangle;
 import posapplication.reusableFunctions.imageUpload;
 import posapplication.reusableFunctions.mailSender;
 import java.sql.Time;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javafx.fxml.FXMLLoader;
+import posapplication.components.message.MessageController;
+import posapplication.models.message;
 import posapplication.reusableFunctions.timerClass;
 
 /**
@@ -338,6 +344,49 @@ public class UniqueInfoTechMethods {
             loadingBar.setVisible(false);
         }
         
+    }
+    
+    public void addBirthdayToView(
+            ResultSet rs,
+            InfotechController infoTechController,
+            VBox messagesContainer
+    ) throws SQLException, IOException {
+        
+        
+    
+        LocalTime time = LocalTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Format the LocalTime object using the formatter
+        String formattedTime = time.format(formatter);
+        
+        String title = "Birthday" ;
+        String summary = rs.getString("first_name") + "'s birthday";
+        String content = "Today is " + rs.getString("first_name") + "'s birthday, do wish them a happy birthday";
+        
+        message currentMessage = new message();
+
+        currentMessage.setTime(formattedTime);
+        currentMessage.setTitle(title);
+        currentMessage.setSummary(summary);
+        currentMessage.setContent(content);
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/message/message.fxml"));
+            HBox currentMessageHBox = fxmlloader.load();
+            MessageController currentMessageController = fxmlloader.getController();
+            currentMessageController.setInfoTechControllerReference(infoTechController);
+            currentMessageController.setData(currentMessage, rs.getString("email"));
+            currentMessageHBox.getProperties().put("controller", currentMessageController);
+
+            currentMessageHBox.setOnMouseClicked(event -> {
+                    currentMessageController.openMessage(currentMessage);
+            });
+            messagesContainer.getChildren().add(currentMessageHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

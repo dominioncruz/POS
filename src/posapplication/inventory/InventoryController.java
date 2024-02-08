@@ -6,6 +6,7 @@ package posapplication.inventory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -41,6 +42,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import posapplication.components.product.ProductController;
+import posapplication.models.message;
 import posapplication.models.product;
 import posapplication.reusableFunctions.centerScreen;
 import posapplication.reusableFunctions.imageUpload;
@@ -61,7 +63,7 @@ public class InventoryController implements Initializable {
     public List<Node> productVBoxes = new ArrayList<>();
 
     product currentProduct;
-    
+
     @FXML
     private Label sideBarDate;
     @FXML
@@ -117,6 +119,20 @@ public class InventoryController implements Initializable {
     TextField[] myInputList = new TextField[6];
     @FXML
     private Button createProductButton;
+    @FXML
+    private VBox birthdayCard;
+    @FXML
+    private Label userNameBirthdayMessage;
+    @FXML
+    private VBox messageBox;
+    @FXML
+    private Label messageTitle;
+    @FXML
+    private Label messageSummary;
+    @FXML
+    private Label messageContent;
+    @FXML
+    private VBox listOfMessages;
 
     /**
      * Initializes the controller class.
@@ -194,7 +210,7 @@ public class InventoryController implements Initializable {
         profileImageCircle.setFill(new ImagePattern(profileImage));
 
         myProductFunctions.initializeProductList(productsContainer, this, databaseConnection);
-        
+
         TextField[] newArray = {productNameInput, quantity, price, manufacturer_name, product_code, low_stock_count};
         System.arraycopy(newArray, 0, myInputList, 0, 6);
 
@@ -202,6 +218,11 @@ public class InventoryController implements Initializable {
             if (node instanceof StackPane) {
                 productVBoxes.add(node);
             }
+        }
+
+        ResultSet rs = databaseConnection.getBirthdays();
+        while (rs.next()) {
+            currentInventoryMethods.addBirthdayToView(rs, this, listOfMessages);
         }
 
         //currentInfoTechMethods.initializeScheduleScreenFields();
@@ -304,6 +325,27 @@ public class InventoryController implements Initializable {
     @FXML
     private void updateProductImage(MouseEvent event) throws ClassNotFoundException, SQLException, IOException {
         imageChooser.uploadFile(productImage);
+    }
+
+    public void showMessage(message currentMessage, String email) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+
+        if (email.equals(userEmail)) {
+            birthdayCard.setVisible(true);
+        } else {
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+
+    }
+
+    @FXML
+    private void closeMessages(MouseEvent event) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
     }
 
 }

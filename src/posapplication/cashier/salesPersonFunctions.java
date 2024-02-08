@@ -5,13 +5,16 @@
 package posapplication.cashier;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.Date;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import posapplication.models.product;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -20,8 +23,12 @@ import posapplication.components.product.ProductFunctions;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import javafx.scene.Node;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import posapplication.components.customerOrder.CustomerOrderController;
+import posapplication.components.message.MessageController;
+import posapplication.manager.ManagerController;
+import posapplication.models.message;
 import posapplication.models.order;
 import posapplication.reusableFunctions.DatabaseConnection;
 
@@ -182,6 +189,49 @@ public class salesPersonFunctions {
     ) throws SQLException {
         boolean result = db.addNewSaleForSeller(buyerName, product_code, quantity, amount, paymentMethodUsed, userEmail);
         return result;
+    }
+    
+    public void addBirthdayToView(
+            ResultSet rs,
+            SalespersonController salespersonController,
+            VBox messagesContainer
+    ) throws SQLException, IOException {
+        
+        
+    
+        LocalTime time = LocalTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Format the LocalTime object using the formatter
+        String formattedTime = time.format(formatter);
+        
+        String title = "Birthday" ;
+        String summary = rs.getString("first_name") + "'s birthday";
+        String content = "Today is " + rs.getString("first_name") + "'s birthday, do wish them a happy birthday";
+        
+        message currentMessage = new message();
+
+        currentMessage.setTime(formattedTime);
+        currentMessage.setTitle(title);
+        currentMessage.setSummary(summary);
+        currentMessage.setContent(content);
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/message/message.fxml"));
+            HBox currentMessageHBox = fxmlloader.load();
+            MessageController currentMessageController = fxmlloader.getController();
+            currentMessageController.setCashierControllerReference(salespersonController);
+            currentMessageController.setData(currentMessage, rs.getString("email"));
+            currentMessageHBox.getProperties().put("controller", currentMessageController);
+
+            currentMessageHBox.setOnMouseClicked(event -> {
+                    currentMessageController.openCashierMessage(currentMessage);
+            });
+            messagesContainer.getChildren().add(currentMessageHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

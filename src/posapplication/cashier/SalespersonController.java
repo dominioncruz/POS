@@ -41,6 +41,8 @@ import posapplication.components.product.ProductFunctions;
 import posapplication.models.product;
 import posapplication.reusableFunctions.DatabaseConnection;
 import posapplication.reusableFunctions.centerScreen;
+import java.sql.ResultSet;
+import posapplication.models.message;
 
 /**
  * FXML Controller class
@@ -60,8 +62,6 @@ public class SalespersonController implements Initializable {
     private BorderPane entireScreen;
     @FXML
     private HBox navBarCart;
-    @FXML
-    private HBox nvaBarMessages;
     @FXML
     private HBox shoppingPage;
     @FXML
@@ -106,6 +106,24 @@ public class SalespersonController implements Initializable {
     private VBox sideCustomerOrder;
     @FXML
     private Button completeButton;
+    @FXML
+    private VBox openShopPage;
+    @FXML
+    private VBox openMessagesPage;
+    @FXML
+    private VBox messagesContainer;
+    @FXML
+    private VBox birthdayCard;
+    @FXML
+    private Label userNameBirthdayMessage;
+    @FXML
+    private VBox messageBox;
+    @FXML
+    private Label messageTitle;
+    @FXML
+    private Label messageSummary;
+    @FXML
+    private Label messageContent;
 
     public SalespersonController() throws ClassNotFoundException {
         this.myProductFunctions = new ProductFunctions();
@@ -169,6 +187,11 @@ public class SalespersonController implements Initializable {
             if (node instanceof StackPane) {
                 productVBoxes.add(node);
             }
+        }
+        
+        ResultSet rs = databaseConnection.getBirthdays();
+        while (rs.next()) {
+            salesPersonfunctions.addBirthdayToView(rs, this, messagesContainer);
         }
 
         //currentInfoTechMethods.initializeScheduleScreenFields();
@@ -347,6 +370,27 @@ public class SalespersonController implements Initializable {
             }
         }
 
+    }
+    
+    public void showMessage(message currentMessage, String email) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+
+        if (email.equals(userEmail)) {
+            birthdayCard.setVisible(true);
+        } else {
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+
+    }
+
+    @FXML
+    private void closeMessages(MouseEvent event) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
     }
 
 }

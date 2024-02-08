@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.ImagePattern;
@@ -33,6 +34,8 @@ import posapplication.models.employeeSales;
 import posapplication.models.salesAmount;
 import posapplication.reusableFunctions.DatabaseConnection;
 import posapplication.reusableFunctions.centerScreen;
+import java.sql.ResultSet;
+import posapplication.models.message;
 
 /**
  * FXML Controller class
@@ -88,6 +91,22 @@ public class ManagerController implements Initializable {
     private TableColumn<salesAmount, String> product;
     @FXML
     private TableColumn<salesAmount, String> items_sold;
+    @FXML
+    private HBox entireScreen;
+    @FXML
+    private VBox messagesVBox;
+    @FXML
+    private VBox birthdayCard;
+    @FXML
+    private Label userNameBirthdayMessage;
+    @FXML
+    private VBox messageBox;
+    @FXML
+    private Label messageTitle;
+    @FXML
+    private Label messageSummary;
+    @FXML
+    private Label messageContent;
 
     public ManagerController() throws ClassNotFoundException {
         this.currentManagerFunctions = new managerFunctions();
@@ -106,7 +125,11 @@ public class ManagerController implements Initializable {
         profilePicture.setFill(new ImagePattern(profileImage));
 
         currentManagerFunctions.getManagerNecessaryDetails(databaseConnection, totalDailyEarning, bestSellerImage, bestSellerTotal, dailyBarChart, weeklyBarChart, monthlyBarChart, yearlyBarChart, cashierSalesTable, productSalesTable);
-
+        
+        ResultSet rs = databaseConnection.getBirthdays();
+        while (rs.next()) {
+            currentManagerFunctions.addBirthdayToView(rs, this, messagesVBox);
+        }
     }
 
     ;
@@ -174,6 +197,27 @@ public class ManagerController implements Initializable {
         weeklyBarChart.setVisible(false);
         monthlyBarChart.setVisible(false);
         yearlyBarChart.setVisible(true);
+    }
+    
+    public void showMessage(message currentMessage, String email) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+
+        if (email.equals(userEmail)) {
+            birthdayCard.setVisible(true);
+        } else {
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+
+    }
+
+    @FXML
+    private void closeMessages(MouseEvent event) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
     }
 
 }

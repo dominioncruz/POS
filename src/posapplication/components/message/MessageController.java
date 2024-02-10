@@ -98,17 +98,38 @@ public class MessageController implements Initializable {
         infoTechController.showMessage(currentMessage, email);
     }
     
+    public void openInfoTechNotification(message currentMessage){
+        infoTechController.showInfoOtherMessage(currentMessage);
+    }
+    
     public void openInventoryMessage(message currentMessage) {
         inventoryController.showMessage(currentMessage, email);
+    }
+    
+    public void openOtherInventoryMessage(message currentMessage) {
+        inventoryController.showInfoOtherMessage(currentMessage);
     }
     
     public void openManagerMessage(message currentMessage) {
         managerController.showMessage(currentMessage, email);
     }
     
+     public void openOtherManagerMessage(message currentMessage) {
+        managerController.showManagerOtherMessage(currentMessage);
+    }
+    
+    
+    
+     public void openOtherSalesMessage(message currentMessage) {
+        salespersonController.showInfoOtherMessage(currentMessage);
+    }
+    
+    
     public void openCashierMessage(message currentMessage) {
         salespersonController.showMessage(currentMessage, email);
     }
+    
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

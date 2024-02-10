@@ -50,6 +50,11 @@ import posapplication.models.message;
  * @author HP PROBOOK 430 G3
  */
 public class inventoryMethods {
+    
+    
+
+// Send and receive messages as needed
+
 
     public void updateProductInformation(
             VBox editPageContainer,
@@ -78,7 +83,9 @@ public class inventoryMethods {
             product currentProduct,
             Label actualSubmitButton,
             List<Node> productVBoxes,
-            ProductFunctions myProductFunctions
+            ProductFunctions myProductFunctions,
+            VBox listOfMessages,
+            List<String> lowStockItems
     ) {
         try {
             loadingBar.setVisible(true);
@@ -109,15 +116,9 @@ public class inventoryMethods {
                         errorMessage.setText("An occured somewhere");
                     } else {
                         successMessage.setText("Product updated successfully");
-                        
-                          productsContainer.getChildren().clear();
-                        productVBoxes.clear();
-                        myProductFunctions.initializeProductList(productsContainer, inventoryController, databaseConnection);
-                        for (Node node : productsContainer.getChildren()) {
-                            if (node instanceof StackPane) {
-                                productVBoxes.add(node);
-                            }
-                        }
+                        myProductFunctions.initializeProductList(productsContainer, inventoryController, databaseConnection, lowStockItems, listOfMessages, this, productVBoxes);
+                      
+                        addNewInfoToMessagses("Update", "Product detail updated", "You updated details for product: " + productNameInput.getText(), inventoryController, listOfMessages);
                         successBox.setVisible(true);
                         enitreScreen.setDisable(false);
                         resetFields(product_code, productNameInput, manufacturer_name, production_date, expiry_date, quantity, price, productDescription, low_stock_count, submitButton, editPageContainer, imageContainer, listOfProductsScrollPane, actualSubmitButton);
@@ -165,8 +166,9 @@ public class inventoryMethods {
             FlowPane productsContainer,
             Label actualSubmitButton,
             List<Node> productVBoxes,
-            ProductFunctions myProductFunctions
-            
+            ProductFunctions myProductFunctions,
+            VBox listOfMessages,
+            List<String> lowStockItems
     ) {
         try {
             loadingBar.setVisible(true);
@@ -196,15 +198,9 @@ public class inventoryMethods {
                         errorMessage.setText("An occured somewhere");
                     } else {
                         successMessage.setText("Product added successfully");
-
-                        productsContainer.getChildren().clear();
-                        productVBoxes.clear();
-                        myProductFunctions.initializeProductList(productsContainer, inventoryController, databaseConnection);
-                        for (Node node : productsContainer.getChildren()) {
-                            if (node instanceof StackPane) {
-                                productVBoxes.add(node);
-                            }
-                        }
+                        myProductFunctions.initializeProductList(productsContainer, inventoryController, databaseConnection, lowStockItems, listOfMessages, this, productVBoxes);
+                        
+                        addNewInfoToMessagses("Upload", "New product added", "You added a new product to inventory: " + productNameInput.getText(), inventoryController, listOfMessages);
                         successBox.setVisible(true);
                         enitreScreen.setDisable(false);
                         resetFields(product_code, productNameInput, manufacturer_name, production_date, expiry_date, quantity, price, productDescription, low_stock_count, submitButton, editPageContainer, imageContainer, listOfProductsScrollPane, actualSubmitButton);
@@ -368,4 +364,45 @@ public class inventoryMethods {
         }
     }
     
+    public void addNewInfoToMessagses(
+            String title,
+            String summary,
+            String content,
+            InventoryController inventController,
+            VBox messagesContainer
+    ) throws SQLException, IOException {
+        
+        
+    
+        LocalTime time = LocalTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Format the LocalTime object using the formatter
+        String formattedTime = time.format(formatter);
+        
+        message currentMessage = new message();
+
+        currentMessage.setTime(formattedTime);
+        currentMessage.setTitle(title);
+        currentMessage.setSummary(summary);
+        currentMessage.setContent(content);
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/message/message.fxml"));
+            HBox currentMessageHBox = fxmlloader.load();
+            MessageController currentMessageController = fxmlloader.getController();
+            currentMessageController.setInventoryControllerReference(inventController);
+            currentMessageController.setData(currentMessage, null);
+            currentMessageHBox.getProperties().put("controller", currentMessageController);
+
+            currentMessageHBox.setOnMouseClicked(event -> {
+                    currentMessageController.openOtherInventoryMessage(currentMessage);
+            });
+            messagesContainer.getChildren().add(currentMessageHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

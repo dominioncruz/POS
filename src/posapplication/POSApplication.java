@@ -15,17 +15,20 @@ import posapplication.reusableFunctions.centerScreen;
  * @author HP PROBOOK 430 G3
  */
 public class POSApplication extends Application {
-    DatabaseConnection  connection = DatabaseConnection.getInstance();
+
+    DatabaseConnection connection = DatabaseConnection.getInstance();
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         centerScreen screenInstance = new centerScreen();
         screenInstance.centerFrame(primaryStage, "/posapplication/login/loginPage.fxml", connection);
-    }
-
+    }    
+        
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         launch(args);
     }
 

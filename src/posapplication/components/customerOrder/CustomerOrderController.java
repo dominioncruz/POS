@@ -97,6 +97,7 @@ public class CustomerOrderController implements Initializable {
     
     public Map<String, String> getData(){
         Map<String, String> orderDetails = new HashMap<>();
+        orderDetails.put("product_name", currentOrder.getProductName());
         orderDetails.put("cost", cost.getText());
         orderDetails.put("quantity", count.getText());
         orderDetails.put("product_code", currentOrder.getProductCode());

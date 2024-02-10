@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fx:id="entireContainer" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="posapplication.receipt.ReceiptController">
+   <content>
+      <VBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="298.0" spacing="8.0">
+         <children>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo-150x150.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Pan-Atlantic University">
+                     <font>
+                        <Font name="Righteous" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Km 52 Lekki - Epe Expy, Lagos 105101, Lagos">
+               <font>
+                  <Font name="Poppins Regular" size="10.0" />
+               </font>
+            </Label>
+            <VBox>
+               <children>
+                  <HBox maxWidth="1.7976931348623157E308" spacing="5.0">
+                     <children>
+                        <Label text="Name:">
+                           <font>
+                              <Font name="Poppins Regular" size="11.0" />
+                           </font></Label>
+                        <Label fx:id="fullName" maxWidth="1.7976931348623157E308" text="No name provided" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="2.0" />
+                           </padding>
+                           <font>
+                              <Font name="Poppins Regular" size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="todaysDate" maxWidth="1.7976931348623157E308" text="26 Jan 2024">
+                           <padding>
+                              <Insets bottom="2.0" />
+                           </padding>
+                           <font>
+                              <Font name="Poppins Regular" size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onMousePressed="#printReceipt" text="Print" textFill="#bbbbbb">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="15.0" top="15.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="transactionDetailsBox" maxWidth="1.7976931348623157E308" spacing="5.0">
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Payment method:">
+                     <font>
+                        <Font name="Poppins Regular" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="paymentMethod" text="cash">
+                     <font>
+                        <Font name="Poppins Regular" size="11.0" />
+                     </font>
+                  </Label>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Label text="Total:">
+                     <font>
+                        <Font name="Poppins Regular" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalCost" text="50000">
+                     <font>
+                        <Font name="Poppins Regular" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Online Inventory Management System" textAlignment="CENTER" textFill="#bbbbbb">
+               <font>
+                  <Font name="Poppins Regular" size="10.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="30.0" top="30.0" />
+         </padding>
+      </VBox>
+   </content>
+</ScrollPane>

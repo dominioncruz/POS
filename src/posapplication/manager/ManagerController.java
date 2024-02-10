@@ -36,6 +36,7 @@ import posapplication.reusableFunctions.DatabaseConnection;
 import posapplication.reusableFunctions.centerScreen;
 import java.sql.ResultSet;
 import posapplication.models.message;
+import posapplication.reusableFunctions.managerTimerClass;
 
 /**
  * FXML Controller class
@@ -48,6 +49,7 @@ public class ManagerController implements Initializable {
     static DatabaseConnection databaseConnection;
     managerFunctions currentManagerFunctions;
     private final centerScreen centerScreenAccess;
+    managerTimerClass timerClassToWorkWith;
 
     @FXML
     private Circle profilePicture;
@@ -113,7 +115,7 @@ public class ManagerController implements Initializable {
         this.centerScreenAccess = new centerScreen();
     }
 
-    public void setData(HashMap<String, Object> data) throws IOException, SQLException {
+    public void setData(HashMap<String, Object> data) throws IOException, SQLException, ClassNotFoundException {
 
         fullName.setText((String) data.get("firstname") + " " + (String) data.get("lastname"));
         userEmail = (String) data.get("email");
@@ -130,6 +132,13 @@ public class ManagerController implements Initializable {
         while (rs.next()) {
             currentManagerFunctions.addBirthdayToView(rs, this, messagesVBox);
         }
+        
+        rs = databaseConnection.getAllExpiringProducts();
+        while (rs.next()) {
+            currentManagerFunctions.addNewInfoToMessagses("Expiry", "Product expiration", "The product: " + rs.getString("name") + " is about to expire. It expires on "  + rs.getDate("expiry_date"), this, messagesVBox);
+        }
+        
+        timerClassToWorkWith = new managerTimerClass(databaseConnection, currentManagerFunctions, totalDailyEarning, bestSellerImage, bestSellerTotal, dailyBarChart, weeklyBarChart, monthlyBarChart, yearlyBarChart, cashierSalesTable, productSalesTable);
     }
 
     ;
@@ -145,6 +154,7 @@ public class ManagerController implements Initializable {
 
     @FXML
     private void signOut(MouseEvent event) throws IOException {
+        timerClassToWorkWith.stopTimer();
         HBox logOutButton = (HBox) event.getSource();
         Stage currentStage = (Stage) logOutButton.getScene().getWindow();
         currentStage.close();
@@ -206,6 +216,19 @@ public class ManagerController implements Initializable {
         if (email.equals(userEmail)) {
             birthdayCard.setVisible(true);
         } else {
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+
+    }
+    
+    public void showManagerOtherMessage(message currentMessage) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+
+        {
             messageTitle.setText(currentMessage.getTitle());
             messageSummary.setText(currentMessage.getSummary());
             messageContent.setText(currentMessage.getContent());

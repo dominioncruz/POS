@@ -49,6 +49,7 @@ import javafx.scene.control.Button;
 import posapplication.reusableFunctions.PasswordGenerator;
 import posapplication.reusableFunctions.mailSender;
 import java.sql.Time;
+import java.time.LocalTime;
 import posapplication.models.message;
 import posapplication.reusableFunctions.timerClass;
 /**
@@ -192,7 +193,7 @@ public class InfotechController implements Initializable {
         this.currentMailSender = new mailSender();
     }
 
-    public void setData(HashMap<String, Object> data) throws SQLException, IOException, IOException {
+    public void setData(HashMap<String, Object> data) throws SQLException, IOException, IOException, ClassNotFoundException {
 
         userFullName.setText((String) data.get("firstname") + " " + (String) data.get("lastname"));
         userEmail.setText((String) data.get("email"));
@@ -212,7 +213,7 @@ public class InfotechController implements Initializable {
         currentInfoTechMethods.initializeInputFields(registrationMap, firstNameValue, firstNameBorder, lastNameValue, lastNameBorder, emailValue, emailBorder, phoneValue, phoneBorder);
         currentInfoTechMethods.initializeInputFields(searchMap, firstNameSearchvalue, firstNameBorder1, lastNameSearchValue, lastNameBorder1, emailSearchValue, emailBorder1, phoneSearchValue, phoneBorder1);
         scheduleTime = currentInfoTechMethods.initializeScheduleTime(userEmail.getText(), hourComboBox, minuteComboBox, databaseConnection);
-        timerClassToWorkWith = new timerClass(scheduleTime);
+        timerClassToWorkWith = new timerClass(scheduleTime, currentInfoTechMethods, this, messagesVBox);
         
         ResultSet rs = databaseConnection.getBirthdays();
         while(rs.next()){
@@ -232,6 +233,7 @@ public class InfotechController implements Initializable {
 
     @FXML
     private void signOut(MouseEvent event) throws IOException {
+        timerClassToWorkWith.stopTimer();
         HBox logOutButton = (HBox) event.getSource();
         Stage currentStage = (Stage) logOutButton.getScene().getWindow();
         currentStage.close();
@@ -240,7 +242,7 @@ public class InfotechController implements Initializable {
 
     @FXML
     private void registerANewUser(ActionEvent event) throws SQLException, Exception {
-        currentInfoTechMethods.registerNewUser(currentInputMethods, registrationMap, emailValue, phoneValue, errorMessage, dateOfBirth, databaseConnection, firstNameValue, lastNameValue, genderComboBox, roleComboBox, successBox, entireScreen, invalidDetailVBox, successMessage, imageChooser, image, loadingBar, imageComtainer);
+        currentInfoTechMethods.registerNewUser(currentInputMethods, registrationMap, emailValue, phoneValue, errorMessage, dateOfBirth, databaseConnection, firstNameValue, lastNameValue, genderComboBox, roleComboBox, successBox, entireScreen, invalidDetailVBox, successMessage, imageChooser, image, loadingBar, imageComtainer, this, messagesVBox);
 
     }
 
@@ -251,7 +253,7 @@ public class InfotechController implements Initializable {
     @FXML
     private void openWebcam(ActionEvent event) throws IOException {
         entireScreen.setDisable(true);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/posapplication/infotech/WebCamera.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/posapplication/infotech/Camera.fxml"));
         Parent root = loader.load();
         Stage newStage = new Stage();
         newStage.setResizable(false);
@@ -357,7 +359,7 @@ public class InfotechController implements Initializable {
 
     @FXML
     private void updateUserInformation(ActionEvent event) throws Exception {
-        currentInfoTechMethods.updateUser(currentInputMethods, searchMap, emailSearchValue, phoneSearchValue, errorMessage, dateOfBirthSearchValue, databaseConnection, firstNameSearchvalue, lastNameSearchValue, genderSearchValue, roleSearchValue, successBox, entireScreen, invalidDetailVBox, successMessage, imageChooser, searchImage, loadingBar, imageComtainer2, emailSearchField, resetPasswordButton, updateUserPassword);
+        currentInfoTechMethods.updateUser(currentInputMethods, searchMap, emailSearchValue, phoneSearchValue, errorMessage, dateOfBirthSearchValue, databaseConnection, firstNameSearchvalue, lastNameSearchValue, genderSearchValue, roleSearchValue, successBox, entireScreen, invalidDetailVBox, successMessage, imageChooser, searchImage, loadingBar, imageComtainer2, emailSearchField, resetPasswordButton, updateUserPassword, this, messagesVBox);
 
     }
 
@@ -365,7 +367,7 @@ public class InfotechController implements Initializable {
     private void scheduleBackup(ActionEvent event) throws SQLException {
         int hourValue = hourComboBox.getValue();
         int minuteValue = minuteComboBox.getValue();
-        currentInfoTechMethods.updateTime(hourValue, minuteValue, successBox, successMessage, errorMessage, invalidDetailVBox, databaseConnection, userEmail.getText(), loadingBar, entireScreen, scheduleTime, timerClassToWorkWith);
+        currentInfoTechMethods.updateTime(hourValue, minuteValue, successBox, successMessage, errorMessage, invalidDetailVBox, databaseConnection, userEmail.getText(), loadingBar, entireScreen, scheduleTime, timerClassToWorkWith, messagesVBox, this);
         
     }
     
@@ -376,6 +378,19 @@ public class InfotechController implements Initializable {
         if(email.equals(userEmail.getText())){
             birthdayCard.setVisible(true);
         }else{
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+        
+    }
+    
+      public void showInfoOtherMessage(message currentMessage){
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+        
+        {
             messageTitle.setText(currentMessage.getTitle());
             messageSummary.setText(currentMessage.getSummary());
             messageContent.setText(currentMessage.getContent());

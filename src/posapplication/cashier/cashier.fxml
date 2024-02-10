@@ -362,7 +362,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label fx:id="successMessage1" styleClass="success_text" stylesheets="@../login/loginpage.css" text="Invalid email or password">
+            <Label fx:id="successMessage1" styleClass="success_text" stylesheets="@../login/loginpage.css" text="Transaction complete">
                <font>
                   <Font size="16.0" />
                </font>
@@ -377,17 +377,18 @@
                         <Font size="14.0" />
                      </font>
                      <styleClass>
-                        <String fx:value="success_green" />
+                        <String fx:value="warning_red" />
                         <String fx:value="background_radius" />
                         <String fx:value="textfield_label" />
                      </styleClass>
                   </Button>
-                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#printReceipt" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #03405c;" stylesheets="@../login/loginpage.css" text="Print" textFill="WHITE">
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#printReceipt" prefHeight="50.0" prefWidth="100.0" stylesheets="@../login/loginpage.css" text="Print" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <styleClass>
                         <String fx:value="background_radius" />
+                        <String fx:value="success_green" />
                         <String fx:value="textfield_label" />
                      </styleClass>
                   </Button>

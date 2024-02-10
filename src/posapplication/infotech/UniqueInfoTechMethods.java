@@ -61,8 +61,8 @@ public class UniqueInfoTechMethods {
         gender2ComboBox.setValue("Male");
         role2ComboBox.setValue("Manager");
         minutesComboBox.setItems(FXCollections.observableArrayList(Arrays.asList(0, 15, 30, 45, 60)));
-        int[] array = new int[60];
-        for (int i = 0; i < 60; i++) {
+        int[] array = new int[24];
+        for (int i = 0; i < 24; i++) {
             array[i] = i;
         }
 
@@ -107,7 +107,9 @@ public class UniqueInfoTechMethods {
             imageUpload imageChooser,
             Image profile_photo,
             ProgressIndicator loadingBar,
-            Rectangle userImage
+            Rectangle userImage,
+            InfotechController infotechcontroller,
+            VBox messagesContainer
     ) throws SQLException, Exception {
 
         try {
@@ -147,6 +149,7 @@ public class UniqueInfoTechMethods {
                         } else {
                             successMessage.setText("User registered successfully");
                             successDialogBox.setVisible(true);
+                            addNewInfoToMessagses("Registration", "New user registered", "You created a new user: " + firstNameInput.getText() + " " + lastNameInput.getText(), infotechcontroller, messagesContainer);
                             mailSender.sendMail(firstNameInput.getText(), email, dataEntryState, roleComboBox.getValue());
                             resetFields(firstNameInput, lastNameInput, emailInput, phoneNumberInput, birthDatePicker, genderComboBox, roleComboBox, profile_photo, userImage);
                         }
@@ -254,7 +257,9 @@ public class UniqueInfoTechMethods {
             Rectangle userImage,
             TextField queryEmail,
             Button resetButton,
-            Button updateButton
+            Button updateButton,
+            InfotechController infotechcontroller,
+            VBox messagesContainer
     ) throws SQLException, Exception {
 
         try {
@@ -289,6 +294,7 @@ public class UniqueInfoTechMethods {
                     } else {
                         successMessage.setText("User data updated successfully");
                         successDialogBox.setVisible(true);
+                        addNewInfoToMessagses("Update", "User Info updated", "You updated user data: " + firstNameInput.getText() + " " + lastNameInput.getText(), infotechcontroller, messagesContainer);
                         queryEmail.setText("");
                         resetButton.setDisable(true);
                         updateButton.setDisable(true);
@@ -314,14 +320,22 @@ public class UniqueInfoTechMethods {
 
     public Time initializeScheduleTime(String email, ComboBox<Integer> hour, ComboBox<Integer> minute, DatabaseConnection databaseConnection) throws SQLException {
         Time backupTime = databaseConnection.selectScheduleTime(email);
-        int hourValue = backupTime.getHours();
-        int minuteValue = backupTime.getMinutes();
+        int hourValue = 0;
+        int minuteValue = 0;
+        if(backupTime == null){
+            hourValue = 16;
+            minuteValue = 30;
+        }else{
+            hourValue = backupTime.getHours();
+            minuteValue = backupTime.getMinutes();
+        }
+        
         hour.setValue(hourValue);
         minute.setValue(minuteValue);
-        return backupTime;
+        return  backupTime;
     }
     
-    public void updateTime(int hourValue, int minuteValue, VBox successBox, Label successMessage, Label errorMessage, VBox invalidDetailVBox, DatabaseConnection databaseConnection, String email, ProgressIndicator loadingBar, BorderPane entireScreen, Time scheduleTime, timerClass timerObject) throws SQLException{
+    public void updateTime(int hourValue, int minuteValue, VBox successBox, Label successMessage, Label errorMessage, VBox invalidDetailVBox, DatabaseConnection databaseConnection, String email, ProgressIndicator loadingBar, BorderPane entireScreen, Time scheduleTime, timerClass timerObject, VBox messagesVBox, InfotechController infotechController) throws SQLException{
         Time time = new Time(hourValue, minuteValue, 0);
         
         try{
@@ -333,6 +347,7 @@ public class UniqueInfoTechMethods {
                 scheduleTime = time;
                 timerObject.updateTimerValue(time);
                 successBox.setVisible(true);
+                addNewInfoToMessagses("Backup", "Backup schedule", "You scheduled a data backup for time: " + time, infotechController, messagesVBox);
             }else{
                 errorMessage.setText("An error occured somewhere");
                 invalidDetailVBox.setVisible(true);
@@ -382,6 +397,47 @@ public class UniqueInfoTechMethods {
 
             currentMessageHBox.setOnMouseClicked(event -> {
                     currentMessageController.openMessage(currentMessage);
+            });
+            messagesContainer.getChildren().add(currentMessageHBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addNewInfoToMessagses(
+            String title,
+            String summary,
+            String content,
+            InfotechController infoTechController,
+            VBox messagesContainer
+    ) throws SQLException, IOException {
+        
+        
+    
+        LocalTime time = LocalTime.now();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Format the LocalTime object using the formatter
+        String formattedTime = time.format(formatter);
+        
+        message currentMessage = new message();
+
+        currentMessage.setTime(formattedTime);
+        currentMessage.setTitle(title);
+        currentMessage.setSummary(summary);
+        currentMessage.setContent(content);
+
+        try {
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("../components/message/message.fxml"));
+            HBox currentMessageHBox = fxmlloader.load();
+            MessageController currentMessageController = fxmlloader.getController();
+            currentMessageController.setInfoTechControllerReference(infoTechController);
+            currentMessageController.setData(currentMessage, null);
+            currentMessageHBox.getProperties().put("controller", currentMessageController);
+
+            currentMessageHBox.setOnMouseClicked(event -> {
+                    currentMessageController.openInfoTechNotification(currentMessage);
             });
             messagesContainer.getChildren().add(currentMessageHBox);
         } catch (IOException e) {

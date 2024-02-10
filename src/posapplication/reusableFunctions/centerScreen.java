@@ -16,11 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import posapplication.cashier.SalespersonController;
 import posapplication.infotech.InfotechController;
 import posapplication.inventory.InventoryController;
 import posapplication.login.LoginPageController;
 import posapplication.manager.ManagerController;
+import posapplication.receipt.ReceiptController;
 
 /**
  *
@@ -29,6 +32,8 @@ import posapplication.manager.ManagerController;
 public class centerScreen {
 
     public void centerFrame(Stage stage, String route, DatabaseConnection DatabaseConnection) throws IOException {
+        
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource(route));
         Parent root = loader.load();
         stage.close();
@@ -173,7 +178,36 @@ public class centerScreen {
         stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
 
+    };
+    
+    public void showReceipt(Stage stage, String route, String fullName, VBox listOfOrderVBox, String paymentMethod, String totalCost ) throws IOException, ClassNotFoundException, SQLException{
+        HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("fullName", fullName);
+        parameters.put("listOfOrder", listOfOrderVBox);
+        parameters.put("paymentMethod", paymentMethod);
+        parameters.put("totalCost", totalCost);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(route));
+        Parent root = loader.load();
+        ReceiptController nextController = loader.getController();
+        nextController.setData(parameters);
+        Stage secondaryStage = new Stage();
+        
+        secondaryStage.setResizable(false);
+        Scene scene = new Scene(root);
+        secondaryStage.setScene(scene);
+        secondaryStage.initModality(Modality.APPLICATION_MODAL);
+        secondaryStage.setTitle("Receipt Preview");
+
+        // Size the Stage to fit the content
+        secondaryStage.sizeToScene();
+        secondaryStage.setFullScreen(false);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        secondaryStage.setX((screenBounds.getWidth() - secondaryStage.getWidth()) / 2);
+        secondaryStage.setY((screenBounds.getHeight() - secondaryStage.getHeight()) / 2);
+        // Show the Stage (this is optional and can be removed if you don't want to show the preview)
+        secondaryStage.show();
+        
     }
-;
+    
 
 }

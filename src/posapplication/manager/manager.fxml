@@ -175,7 +175,7 @@
                                     </HBox>
                                     <StackPane>
                                        <children>
-                                          <BarChart fx:id="dailyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;">
+                                          <BarChart fx:id="dailyBarChart" alternativeRowFillVisible="false" animated="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;">
                                              <xAxis>
                                                 <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
                                              </xAxis>
@@ -183,7 +183,7 @@
                                                 <NumberAxis side="LEFT" />
                                              </yAxis>
                                           </BarChart>
-                                          <BarChart fx:id="weeklyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+                                          <BarChart fx:id="weeklyBarChart" alternativeRowFillVisible="false" animated="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
                                              <xAxis>
                                                 <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
                                              </xAxis>
@@ -191,7 +191,7 @@
                                                 <NumberAxis side="LEFT" />
                                              </yAxis>
                                           </BarChart>
-                                          <BarChart fx:id="monthlyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+                                          <BarChart fx:id="monthlyBarChart" alternativeRowFillVisible="false" animated="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
                                              <xAxis>
                                                 <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
                                              </xAxis>
@@ -199,7 +199,7 @@
                                                 <NumberAxis side="LEFT" />
                                              </yAxis>
                                           </BarChart>
-                                          <BarChart fx:id="yearlyBarChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+                                          <BarChart fx:id="yearlyBarChart" alternativeRowFillVisible="false" animated="false" horizontalGridLinesVisible="false" legendSide="TOP" legendVisible="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
                                              <xAxis>
                                                 <CategoryAxis side="BOTTOM" style="-fx-background-color: white;" />
                                              </xAxis>

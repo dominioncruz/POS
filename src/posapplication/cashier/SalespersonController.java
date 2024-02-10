@@ -4,6 +4,7 @@
  */
 package posapplication.cashier;
 
+import posapplication.receipt.NodePrinter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -43,6 +44,8 @@ import posapplication.reusableFunctions.DatabaseConnection;
 import posapplication.reusableFunctions.centerScreen;
 import java.sql.ResultSet;
 import posapplication.models.message;
+import posapplication.reusableFunctions.InventoryTimerClass;
+import posapplication.reusableFunctions.salesPersonTimerClass;
 
 /**
  * FXML Controller class
@@ -56,8 +59,10 @@ public class SalespersonController implements Initializable {
     private final centerScreen centerScreenAccess;
     static DatabaseConnection databaseConnection;
     public List<Node> productVBoxes = new ArrayList<>();
+    List<String> lowStockItems = new ArrayList<>();
     ProductFunctions myProductFunctions;
     salesPersonFunctions salesPersonfunctions;
+    salesPersonTimerClass timerClassToWorkWith;
     @FXML
     private BorderPane entireScreen;
     @FXML
@@ -170,7 +175,7 @@ public class SalespersonController implements Initializable {
         totalCost.setText(String.valueOf(Integer.parseInt(totalCost.getText()) - value));
     }
 
-    public void setData(HashMap<String, Object> data) throws SQLException, IOException {
+    public void setData(HashMap<String, Object> data) throws SQLException, IOException, ClassNotFoundException {
 
         userFullName.setText((String) data.get("firstname") + " " + (String) data.get("lastname"));
         userEmail = (String) data.get("email");
@@ -181,18 +186,24 @@ public class SalespersonController implements Initializable {
         }
         profileImageCircle.setFill(new ImagePattern(profileImage));
 
-        myProductFunctions.initializeProductList(productsContainer, this, databaseConnection);
+        myProductFunctions.initializeProductList(productsContainer, this, databaseConnection, lowStockItems, messagesContainer, salesPersonfunctions, productVBoxes);
 
-        for (Node node : productsContainer.getChildren()) {
-            if (node instanceof StackPane) {
-                productVBoxes.add(node);
-            }
-        }
-        
         ResultSet rs = databaseConnection.getBirthdays();
         while (rs.next()) {
             salesPersonfunctions.addBirthdayToView(rs, this, messagesContainer);
         }
+
+        rs = databaseConnection.getBirthdays();
+        while (rs.next()) {
+            salesPersonfunctions.addBirthdayToView(rs, this, messagesContainer);
+        }
+
+        rs = databaseConnection.getAllExpiringProducts();
+        while (rs.next()) {
+            salesPersonfunctions.addNewInfoToMessagses("Expiry", "Product expiration", "The product: " + rs.getString("name") + " is about to expire. It expires on "  + rs.getDate("expiry_date"), this, messagesContainer);
+        }
+
+        timerClassToWorkWith = new salesPersonTimerClass(databaseConnection, this, myProductFunctions, productsContainer, lowStockItems, messagesContainer, salesPersonfunctions, productVBoxes);
 
         //currentInfoTechMethods.initializeScheduleScreenFields();
         /*
@@ -244,7 +255,7 @@ public class SalespersonController implements Initializable {
     public void removeCurrentOrder(VBox currentProduct, int cost) {
         totalCost.setText(String.valueOf(Integer.parseInt(totalCost.getText()) - cost));
         listOfOrderVBox.getChildren().remove(currentProduct);
-        if(listOfOrderVBox.getChildren().isEmpty()){
+        if (listOfOrderVBox.getChildren().isEmpty()) {
             completeButton.setDisable(true);
         }
     }
@@ -266,6 +277,7 @@ public class SalespersonController implements Initializable {
 
     @FXML
     private void signOut(MouseEvent event) throws IOException {
+        timerClassToWorkWith.stopTimer();
         HBox logOutButton = (HBox) event.getSource();
         Stage currentStage = (Stage) logOutButton.getScene().getWindow();
         currentStage.close();
@@ -304,22 +316,8 @@ public class SalespersonController implements Initializable {
                 }
             }
             if (result) {
+                salesPersonfunctions.addNewInfoToMessagses("Sales", "New transaction", "You made a successful sale, total cost: " + totalCost.getText(), this, messagesContainer);
                 printOpionPopUp.setVisible(true);
-                listOfOrderVBox.getChildren().clear();
-                productsContainer.getChildren().clear();
-                productVBoxes.clear();
-                for (Label paymentMethod : paymentMethods) {
-                    paymentMethod.getStyleClass().remove("selected_payment_method");
-                }
-                cashPaymentMethod.getStyleClass().add("selected_payment_method");
-                totalCost.setText("0");
-                customerName.setText("");
-                myProductFunctions.initializeProductList(productsContainer, this, databaseConnection);
-                for (Node node : productsContainer.getChildren()) {
-                    if (node instanceof StackPane) {
-                        productVBoxes.add(node);
-                    }
-                }
             } else {
                 errorMessage.setText("An error occured somewhere");
                 invalidDetailVBox.setVisible(true);
@@ -344,34 +342,55 @@ public class SalespersonController implements Initializable {
     }
 
     @FXML
-    private void closeWarningBox(ActionEvent event) {
+    private void closeWarningBox(ActionEvent event) throws SQLException, IOException {
         printOpionPopUp.setVisible(false);
         invalidDetailVBox.setVisible(false);
         entireScreen.setDisable(false);
+
+        listOfOrderVBox.getChildren().clear();
+        completeButton.setDisable(true);
+
+        for (Label paymentMethod : paymentMethods) {
+            paymentMethod.getStyleClass().remove("selected_payment_method");
+        }
+        cashPaymentMethod.getStyleClass().add("selected_payment_method");
+        totalCost.setText("0");
+        customerName.setText("");
+        myProductFunctions.initializeProductList(productsContainer, this, databaseConnection, lowStockItems, messagesContainer, salesPersonfunctions, productVBoxes);
     }
 
     @FXML
-    private void printReceipt(ActionEvent event) {
-
-        // Set up the NodePrinter with the StackPane
-        Rectangle printBounds = new Rectangle(sideCustomerOrder.getWidth(), sideCustomerOrder.getHeight());
-        printer.setPrintRectangle(printBounds);
-
-        // Create and configure a PrinterJob
-        PrinterJob job = PrinterJob.createPrinterJob();
-        if (job != null) {
-            // Print the StackPane using the NodePrinter class
-            boolean success = printer.print(job, true, sideCustomerOrder);
-            if (success) {
-                printOpionPopUp.setVisible(false);
-                invalidDetailVBox.setVisible(false);
-                entireScreen.setDisable(false);
-                job.endJob();
+    private void printReceipt(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
+        printOpionPopUp.setVisible(false);
+        entireScreen.setDisable(false);
+        String paymentMethodUsed = "";
+        for (Label paymentMethod : paymentMethods) {
+                if (paymentMethod.getStyleClass().contains("selected_payment_method")) {
+                    paymentMethodUsed = paymentMethod.getText();
+                }
             }
-        }
+        Stage currentStage = (Stage) messageContent.getScene().getWindow();
+        centerScreen currentScreen = new centerScreen();
+        currentScreen.showReceipt(
+                currentStage, 
+                "/posapplication/receipt/receipt.fxml", 
+                customerName.getText(),
+                listOfOrderVBox, 
+                paymentMethodUsed,
+                totalCost.getText()
+        );
+        listOfOrderVBox.getChildren().clear();
+        completeButton.setDisable(true);
 
+        for (Label paymentMethod : paymentMethods) {
+            paymentMethod.getStyleClass().remove("selected_payment_method");
+        }
+        cashPaymentMethod.getStyleClass().add("selected_payment_method");
+        totalCost.setText("0");
+        customerName.setText("");
+        myProductFunctions.initializeProductList(productsContainer, this, databaseConnection, lowStockItems, messagesContainer, salesPersonfunctions, productVBoxes);
     }
-    
+
     public void showMessage(message currentMessage, String email) {
         birthdayCard.setVisible(false);
         messageBox.setVisible(false);
@@ -379,6 +398,21 @@ public class SalespersonController implements Initializable {
         if (email.equals(userEmail)) {
             birthdayCard.setVisible(true);
         } else {
+
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+
+        }
+
+    }
+
+    public void showInfoOtherMessage(message currentMessage) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+
+        {
             messageTitle.setText(currentMessage.getTitle());
             messageSummary.setText(currentMessage.getSummary());
             messageContent.setText(currentMessage.getContent());

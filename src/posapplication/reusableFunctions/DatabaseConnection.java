@@ -20,6 +20,8 @@ import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Timestamp;
 import java.sql.Time;
+import javafx.scene.layout.VBox;
+import posapplication.infotech.InfotechController;
 
 /**
  *
@@ -147,6 +149,7 @@ public class DatabaseConnection {
     public void updatePasswprd(String password, String matNumber) throws SQLException, Exception {
         String salt = PasswordHashing.getSalt();
         String hashedPassword = PasswordHashing.hashPassword(password, salt);
+        
         String sql = "UPDATE personal_details SET password = ?, salt = ? WHERE email = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, hashedPassword);
@@ -189,6 +192,15 @@ public class DatabaseConnection {
         ResultSet rs = ps.executeQuery();
         return rs;
     }
+    
+     public ResultSet getAllExpiringProducts() throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM products WHERE expiry_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY");
+        ResultSet rs = ps.executeQuery();
+        return rs;
+    }
+    
+    
+
 
     public boolean createNewProductInDatabase(
             String product_code, String productNameInput, String manufacturer_name, LocalDate production_date, LocalDate expiry_date, String quantity, String price, Image productImage, String productDescription, String low_stock_count, String query) throws IOException, SQLException {

@@ -5,6 +5,8 @@
 package posapplication.inventory;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,6 +48,7 @@ import javafx.stage.Stage;
 import posapplication.components.product.ProductController;
 import posapplication.models.message;
 import posapplication.models.product;
+import posapplication.reusableFunctions.InventoryTimerClass;
 import posapplication.reusableFunctions.centerScreen;
 import posapplication.reusableFunctions.imageUpload;
 
@@ -61,7 +66,8 @@ public class InventoryController implements Initializable {
     ProductFunctions myProductFunctions;
     private final inventoryMethods currentInventoryMethods;
     public List<Node> productVBoxes = new ArrayList<>();
-
+    List<String> lowStockItems =  new ArrayList<>();
+    InventoryTimerClass timerClassToWorkWith;
     product currentProduct;
 
     @FXML
@@ -198,7 +204,7 @@ public class InventoryController implements Initializable {
         return code.contains(searchQuery) || name.contains(searchQuery);
     }
 
-    public void setData(HashMap<String, Object> data) throws SQLException, IOException {
+    public void setData(HashMap<String, Object> data) throws SQLException, IOException, ClassNotFoundException {
 
         userFullName.setText((String) data.get("firstname") + " " + (String) data.get("lastname"));
         userEmail = (String) data.get("email");
@@ -209,21 +215,22 @@ public class InventoryController implements Initializable {
         }
         profileImageCircle.setFill(new ImagePattern(profileImage));
 
-        myProductFunctions.initializeProductList(productsContainer, this, databaseConnection);
+        myProductFunctions.initializeProductList(productsContainer, this, databaseConnection, lowStockItems, listOfMessages, currentInventoryMethods, productVBoxes);
 
         TextField[] newArray = {productNameInput, quantity, price, manufacturer_name, product_code, low_stock_count};
         System.arraycopy(newArray, 0, myInputList, 0, 6);
-
-        for (Node node : productsContainer.getChildren()) {
-            if (node instanceof StackPane) {
-                productVBoxes.add(node);
-            }
-        }
 
         ResultSet rs = databaseConnection.getBirthdays();
         while (rs.next()) {
             currentInventoryMethods.addBirthdayToView(rs, this, listOfMessages);
         }
+
+        rs = databaseConnection.getAllExpiringProducts();
+        while (rs.next()) {
+            currentInventoryMethods.addNewInfoToMessagses("Expiry", "Product expiration", "The product: " + rs.getString("name") + " is about to expire. It expires on "  + rs.getDate("expiry_date"), this, listOfMessages);
+        }
+        
+        timerClassToWorkWith = new InventoryTimerClass(databaseConnection, this, myProductFunctions, productsContainer, lowStockItems, listOfMessages, currentInventoryMethods, productVBoxes);
 
         //currentInfoTechMethods.initializeScheduleScreenFields();
         /*
@@ -266,6 +273,7 @@ public class InventoryController implements Initializable {
 
     @FXML
     private void signOut(MouseEvent event) throws IOException {
+        timerClassToWorkWith.stopTimer();
         HBox logOutButton = (HBox) event.getSource();
         Stage currentStage = (Stage) logOutButton.getScene().getWindow();
         currentStage.close();
@@ -307,10 +315,10 @@ public class InventoryController implements Initializable {
     @FXML
     private void updateProductInfo(ActionEvent event) {
         if ("Create".equals(createProductButton.getText())) {
-            currentInventoryMethods.createNewProduct(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, submitButton, productVBoxes, myProductFunctions);
+            currentInventoryMethods.createNewProduct(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, submitButton, productVBoxes, myProductFunctions, listOfMessages,  lowStockItems);
 
         } else {
-            currentInventoryMethods.updateProductInformation(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, currentProduct, submitButton, productVBoxes, myProductFunctions);
+            currentInventoryMethods.updateProductInformation(editPageContainer, createProductButton, listOfProductsScrollPane, productNameInput, productDescription, quantity, price, manufacturer_name, product_code, low_stock_count, production_date, expiry_date, enitreScreen, invalidDetailVBox, loadingBar, successBox, successMessage, errorMessage, myInputList, databaseConnection, productImage, this, productsContainer, currentProduct, submitButton, productVBoxes, myProductFunctions, listOfMessages,  lowStockItems);
         }
 
     }
@@ -334,6 +342,19 @@ public class InventoryController implements Initializable {
         if (email.equals(userEmail)) {
             birthdayCard.setVisible(true);
         } else {
+            messageTitle.setText(currentMessage.getTitle());
+            messageSummary.setText(currentMessage.getSummary());
+            messageContent.setText(currentMessage.getContent());
+            messageBox.setVisible(true);
+        }
+
+    }
+
+    public void showInfoOtherMessage(message currentMessage) {
+        birthdayCard.setVisible(false);
+        messageBox.setVisible(false);
+
+        {
             messageTitle.setText(currentMessage.getTitle());
             messageSummary.setText(currentMessage.getSummary());
             messageContent.setText(currentMessage.getContent());
